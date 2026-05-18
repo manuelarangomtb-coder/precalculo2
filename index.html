@@ -1085,61 +1085,121 @@ const quizzes = {
         q: "En un triángulo rectángulo, el ángulo θ tiene cateto opuesto de 5 cm y cateto adyacente de 12 cm. ¿Cuánto vale sen θ?",
         options: ["5/13", "12/13", "5/12", "13/5"],
         answer: 0,
-        process: "Primero calculamos la hipotenusa con Pitágoras: h = √(5² + 12²) = √169 = 13. Como sen θ = opuesto / hipotenusa, sen θ = 5/13. <b>Error frecuente:</b> escoger 5/12 (eso es la tangente) o 12/13 (eso es el coseno). Dibujar el triángulo y marcar el ángulo evita la confusión."
+        process: "Primero calculamos la hipotenusa con Pitágoras: h = √(5² + 12²) = √169 = 13. Como sen θ = opuesto / hipotenusa, sen θ = 5/13. <b>Error frecuente:</b> escoger 5/12 (eso es la tangente) o 12/13 (eso es el coseno). Dibujar el triángulo y marcar el ángulo evita la confusión.",
+        feedback: [
+          "¡Exacto! Encontraste la hipotenusa con Pitágoras (13) y aplicaste sen θ = opuesto/hipotenusa.",
+          "Casi — esa fracción es el coseno (adyacente/hipotenusa = 12/13), no el seno. El cateto opuesto al ángulo θ mide 5. Vuelve a dibujar y marca cuál lado queda frente a θ.",
+          "Esa razón es la tangente (opuesto/adyacente = 5/12). El seno siempre lleva la hipotenusa en el denominador. No te preocupes, es de los errores más comunes en este tema.",
+          "Invertiste la razón: 13/5 corresponde a la cosecante (csc θ). El seno tiene la hipotenusa abajo, no arriba. Buen intento, ya tienes los números correctos."
+        ]
       },
       {
         q: "¿Cuál es el valor exacto de cos(π/3)?",
         options: ["1/2", "√3/2", "√2/2", "0"],
         answer: 0,
-        process: "El ángulo π/3 corresponde a 60°. En el triángulo 30-60-90, el coseno de 60° es 1/2. <b>Error frecuente:</b> confundir con sen(π/3) = √3/2. Memoriza la tabla básica: a 30° el coseno es √3/2 y a 60° es 1/2 — son inversos."
+        process: "El ángulo π/3 corresponde a 60°. En el triángulo 30-60-90, el coseno de 60° es 1/2. <b>Error frecuente:</b> confundir con sen(π/3) = √3/2. Memoriza la tabla básica: a 30° el coseno es √3/2 y a 60° es 1/2 — son inversos.",
+        feedback: [
+          "¡Bien! cos(60°) = 1/2 en el triángulo 30-60-90. Memoria sólida.",
+          "Ese valor es sen(π/3), no cos(π/3). En 60° el seno y el coseno se intercambian respecto a 30°: aquí el coseno es el más pequeño. Buen intento, vas por la tabla correcta.",
+          "√2/2 corresponde a sen y cos en π/4 (45°), no en π/3 (60°). Confundir π/3 con π/4 es muy común — fíjate en el denominador del ángulo.",
+          "0 corresponde a cos(π/2). En π/3 el coseno aún es positivo y vale 1/2. No te frustres, esta tabla se aprende con repetición."
+        ]
       },
       {
         q: "¿En qué cuadrante se encuentra el ángulo 5π/6?",
         options: ["Cuadrante II", "Cuadrante I", "Cuadrante III", "Cuadrante IV"],
         answer: 0,
-        process: "5π/6 ≈ 150°. Está entre 90° (π/2) y 180° (π), por lo tanto pertenece al <b>cuadrante II</b>. <b>Tip:</b> convierte rápido a grados o ubica el ángulo respecto a π/2, π, 3π/2, 2π."
+        process: "5π/6 ≈ 150°. Está entre 90° (π/2) y 180° (π), por lo tanto pertenece al <b>cuadrante II</b>. <b>Tip:</b> convierte rápido a grados o ubica el ángulo respecto a π/2, π, 3π/2, 2π.",
+        feedback: [
+          "¡Correcto! 5π/6 ≈ 150°, entre π/2 y π, así que cuadrante II.",
+          "El cuadrante I solo llega hasta π/2 (90°). 5π/6 ≈ 150° ya pasó el eje y. Truco útil: pasa el ángulo a grados rápido.",
+          "El cuadrante III empieza después de π (180°). 5π/6 ≈ 150° todavía no ha cruzado el eje x negativo. Buen intento.",
+          "El cuadrante IV está entre 3π/2 y 2π (270°–360°). 5π/6 (150°) está mucho antes — sigue practicando la conversión a grados."
+        ]
       },
       {
         q: "¿Cuál es el signo de tan θ cuando θ está en el cuadrante III?",
         options: ["Positivo", "Negativo", "Cero", "Indefinido"],
         answer: 0,
-        process: "En el cuadrante III tanto sen θ como cos θ son negativos. Como tan θ = sen θ / cos θ, los signos negativos se cancelan y el resultado es <b>positivo</b>. <b>Recuerda:</b> ASTC — Todos, Seno, Tangente, Coseno son positivos en I, II, III y IV respectivamente."
+        process: "En el cuadrante III tanto sen θ como cos θ son negativos. Como tan θ = sen θ / cos θ, los signos negativos se cancelan y el resultado es <b>positivo</b>. <b>Recuerda:</b> ASTC — Todos, Seno, Tangente, Coseno son positivos en I, II, III y IV respectivamente.",
+        feedback: [
+          "¡Bien! Negativo entre negativo da positivo. Recuerda: ASTC (Todos-Seno-Tangente-Coseno).",
+          "En QIII sen y cos son ambos negativos. Al dividirlos, los signos se cancelan: el resultado queda positivo. Es una de esas paradojas de signos que confunde al principio.",
+          "Tangente cero solo ocurre cuando sen = 0 (en 0, π, 2π). En medio del QIII estás lejos de esos ángulos. Buen intento, sigue revisando la definición.",
+          "Tangente indefinida ocurre cuando cos = 0 (π/2 y 3π/2). En medio del QIII el coseno no se anula, así que la tangente está bien definida."
+        ]
       },
       {
         q: "¿Cuál es el valor de arcsen(1/2)?",
         options: ["π/6", "π/3", "5π/6", "π/2"],
         answer: 0,
-        process: "arcsen devuelve un ángulo en el rango [−π/2, π/2]. Buscamos x tal que sen(x) = 1/2 dentro de ese rango: x = π/6 (30°). <b>Cuidado:</b> 5π/6 también cumple sen = 1/2, pero está fuera del rango principal del arcoseno, así que no es la respuesta del arcsen."
+        process: "arcsen devuelve un ángulo en el rango [−π/2, π/2]. Buscamos x tal que sen(x) = 1/2 dentro de ese rango: x = π/6 (30°). <b>Cuidado:</b> 5π/6 también cumple sen = 1/2, pero está fuera del rango principal del arcoseno, así que no es la respuesta del arcsen.",
+        feedback: [
+          "¡Exacto! sen(π/6) = 1/2 y π/6 está dentro del rango principal del arcsen.",
+          "π/3 da sen(π/3) = √3/2, no 1/2. Cuidado al consultar la tabla — π/3 ≠ π/6. Buen intento, ya estás en el cuadrante correcto.",
+          "Aunque sen(5π/6) también vale 1/2, está fuera del rango principal del arcsen, que es [−π/2, π/2]. Las funciones inversas tienen rango restringido — es una trampa muy común.",
+          "π/2 da sen = 1, su máximo. Para llegar a 1/2 el seno tiene que estar a mitad de camino: π/6 (30°). No te preocupes, la tabla de ángulos especiales se construye con práctica."
+        ]
       },
       {
         q: "¿Cuál es el período de la función y = sen(x)?",
         options: ["2π", "π", "π/2", "4π"],
         answer: 0,
-        process: "El seno completa un ciclo entero cada 2π. <b>Tip:</b> recuerda que tan(x) tiene período π, mientras que sen(x) y cos(x) tienen período 2π. No los confundas."
+        process: "El seno completa un ciclo entero cada 2π. <b>Tip:</b> recuerda que tan(x) tiene período π, mientras que sen(x) y cos(x) tienen período 2π. No los confundas.",
+        feedback: [
+          "¡Perfecto! sen(x) completa un ciclo entero cada 2π.",
+          "π es el período de la tangente y la cotangente, no del seno. sen y cos tardan el doble. Buen intento, casi confundes los dos casos.",
+          "π/2 es solo un cuarto del ciclo del seno: sen(0)=0 sube a 1 en π/2, pero aún no vuelve a 0. Falta tres cuartas partes del recorrido.",
+          "4π ya son dos ciclos completos. El seno repite valores antes — exactamente cada 2π. Sigue revisando la gráfica."
+        ]
       },
       {
         q: "¿Cuál es la amplitud de la función y = 3 cos(x)?",
         options: ["3", "6", "1", "1/3"],
         answer: 0,
-        process: "La amplitud es el valor absoluto del coeficiente que multiplica a la función trigonométrica: |3| = 3. <b>Error frecuente:</b> pensar que la amplitud es 6 (eso sería el rango total: de −3 a 3). La amplitud mide la mitad del recorrido vertical."
+        process: "La amplitud es el valor absoluto del coeficiente que multiplica a la función trigonométrica: |3| = 3. <b>Error frecuente:</b> pensar que la amplitud es 6 (eso sería el rango total: de −3 a 3). La amplitud mide la mitad del recorrido vertical.",
+        feedback: [
+          "¡Correcto! La amplitud es |A| = 3, la distancia de la línea media al pico.",
+          "6 es el recorrido completo (de −3 a +3). La amplitud es la mitad: solo del centro al pico, no de un extremo al otro. Es un detalle sutil pero importante.",
+          "1 sería la amplitud de cos(x) sin coeficiente. El 3 que multiplica afuera sí altera la amplitud — la triplica. Buen razonamiento, solo te faltó el coeficiente.",
+          "1/3 saldría si el 3 dividiera (encogería la gráfica). Aquí el 3 multiplica afuera del coseno: estira verticalmente. Sigue practicando con la simulación de la otra pestaña."
+        ]
       },
       {
         q: "¿Cuál de los siguientes valores es una solución de cos(x) = 0 en el intervalo [0, 2π)?",
         options: ["π/2", "0", "π", "2π"],
         answer: 0,
-        process: "cos(π/2) = 0. Otra solución en [0, 2π) es 3π/2, pero no está entre las opciones. <b>Recuerda:</b> el coseno se anula en π/2 + nπ. <b>Cuidado:</b> 2π no pertenece al intervalo porque es <i>abierto</i> en ese extremo."
+        process: "cos(π/2) = 0. Otra solución en [0, 2π) es 3π/2, pero no está entre las opciones. <b>Recuerda:</b> el coseno se anula en π/2 + nπ. <b>Cuidado:</b> 2π no pertenece al intervalo porque es <i>abierto</i> en ese extremo.",
+        feedback: [
+          "¡Bien! cos(π/2) = 0, justo donde el círculo unitario apunta hacia arriba.",
+          "cos(0) = 1, no 0. El coseno arranca en su valor máximo en 0 y desciende. Sigue revisando la gráfica del coseno.",
+          "cos(π) = −1, no 0. Ese es el mínimo del coseno (apunta a la izquierda en el círculo). Buen intento, ya identificaste un ángulo extremo.",
+          "cos(2π) = 1 (vuelve al inicio), pero además 2π no entra en [0, 2π) porque el extremo es abierto. Doble cuidado aquí."
+        ]
       },
       {
         q: "¿Cuál es el valor exacto de tan(π/4)?",
         options: ["1", "√2/2", "√3", "0"],
         answer: 0,
-        process: "tan(π/4) = sen(π/4) / cos(π/4) = (√2/2) / (√2/2) = 1. <b>Tip:</b> π/4 es el único ángulo especial donde sen y cos son iguales, por eso su tangente es exactamente 1."
+        process: "tan(π/4) = sen(π/4) / cos(π/4) = (√2/2) / (√2/2) = 1. <b>Tip:</b> π/4 es el único ángulo especial donde sen y cos son iguales, por eso su tangente es exactamente 1.",
+        feedback: [
+          "¡Exacto! Como sen(π/4) = cos(π/4), su cociente vale exactamente 1.",
+          "√2/2 es el valor de sen y cos por separado en π/4. La tangente es el cociente: (√2/2)/(√2/2) = 1. Buen intento, ya tenías el ángulo correcto.",
+          "√3 es tan(π/3), no tan(π/4). Cuida los ángulos especiales — π/3 y π/4 son fáciles de confundir.",
+          "Tangente cero ocurre cuando el numerador (seno) es cero. En π/4 el seno vale √2/2, distinto de cero. Sigue revisando la definición."
+        ]
       },
       {
         q: "¿Cuál es la coordenada y del punto sobre el círculo unitario asociado al ángulo π/2?",
         options: ["1", "0", "-1", "√2/2"],
         answer: 0,
-        process: "Sobre el círculo unitario, el punto correspondiente a θ es (cos θ, sen θ). Para θ = π/2: (cos(π/2), sen(π/2)) = (0, 1). La coordenada y es 1. <b>Tip visual:</b> π/2 apunta exactamente hacia arriba."
+        process: "Sobre el círculo unitario, el punto correspondiente a θ es (cos θ, sen θ). Para θ = π/2: (cos(π/2), sen(π/2)) = (0, 1). La coordenada y es 1. <b>Tip visual:</b> π/2 apunta exactamente hacia arriba.",
+        feedback: [
+          "¡Sí! En π/2 el punto está justo en (0, 1) — apuntando hacia arriba.",
+          "0 sería y en 0, π o 2π (puntos sobre el eje x). En π/2 estamos sobre el eje y, así que y = 1. Imagínalo en el círculo de la simulación.",
+          "−1 corresponde a 3π/2 (punto apuntando hacia abajo). π/2 apunta arriba, así que y es positivo. Vas bien, solo confundiste arriba con abajo.",
+          "√2/2 corresponde a π/4 (45°, diagonal). En π/2 ya estamos directamente sobre el eje y, así que la coordenada llega a 1."
+        ]
       }
     ]
   },
@@ -1152,61 +1212,121 @@ const quizzes = {
         q: "Si sen θ = 3/5 y θ está en el cuadrante II, ¿cuál es el valor de cos θ?",
         options: ["−4/5", "4/5", "−3/5", "5/4"],
         answer: 0,
-        process: "Usamos la identidad sen²θ + cos²θ = 1: cos²θ = 1 − 9/25 = 16/25, así cos θ = ±4/5. Como θ está en el <b>cuadrante II</b>, el coseno es <b>negativo</b>: cos θ = −4/5. <b>Error frecuente:</b> olvidar el signo y elegir 4/5."
+        process: "Usamos la identidad sen²θ + cos²θ = 1: cos²θ = 1 − 9/25 = 16/25, así cos θ = ±4/5. Como θ está en el <b>cuadrante II</b>, el coseno es <b>negativo</b>: cos θ = −4/5. <b>Error frecuente:</b> olvidar el signo y elegir 4/5.",
+        feedback: [
+          "¡Exacto! Por Pitágoras cos²θ = 16/25, y en QII el signo negativo manda. Excelente combinación de valor + signo.",
+          "El valor numérico está bien (4/5), pero olvidaste el signo. En QII el coseno es negativo (recuerda ASTC). Vas por muy buen camino.",
+          "−3/5 repite el valor del seno, solo cambiándole el signo. Eso no se obtiene de la identidad: cos²θ = 1 − sen²θ. Te falta aplicar Pitágoras.",
+          "5/4 sería la secante (1/cos), no el coseno. Y además, en QII tendría que ser negativa. Buen intento, regresa a la identidad pitagórica."
+        ]
       },
       {
         q: "¿Cuáles son TODAS las soluciones de 2 sen(x) = √3 en [0, 2π)?",
         options: ["π/3 y 2π/3", "π/3 solamente", "π/6 y 5π/6", "π/3 y 4π/3"],
         answer: 0,
-        process: "Despejamos: sen x = √3/2. En [0, 2π), el seno vale √3/2 en x = π/3 (cuadrante I) y en x = π − π/3 = 2π/3 (cuadrante II). <b>Error frecuente:</b> dar solo una solución o usar π/6 (que correspondería a sen = 1/2)."
+        process: "Despejamos: sen x = √3/2. En [0, 2π), el seno vale √3/2 en x = π/3 (cuadrante I) y en x = π − π/3 = 2π/3 (cuadrante II). <b>Error frecuente:</b> dar solo una solución o usar π/6 (que correspondería a sen = 1/2).",
+        feedback: [
+          "¡Perfecto! Encontraste las dos soluciones donde sen vale √3/2 (cuadrantes I y II).",
+          "Te faltó la otra solución. El seno vale √3/2 también en π − π/3 = 2π/3 (cuadrante II). Buen comienzo, solo recuerda que el seno repite ese valor dos veces antes de π.",
+          "π/6 y 5π/6 son las soluciones de sen x = 1/2, no de sen x = √3/2. Cuidado al despejar y consultar la tabla. Cerca, pero ángulo equivocado.",
+          "4π/3 está en QIII, donde el seno es negativo. Allí sen no puede valer +√3/2. Buen intento — fíjate en el signo del seno por cuadrante."
+        ]
       },
       {
         q: "El punto (−3, 4) pertenece al lado terminal del ángulo θ. ¿Cuál es sen θ?",
         options: ["4/5", "−3/5", "−4/5", "−4/3"],
         answer: 0,
-        process: "Calculamos r = √((−3)² + 4²) = √25 = 5. Entonces sen θ = y/r = 4/5. <b>Importante:</b> r es siempre positivo. El signo del seno lo da la coordenada y, que aquí es +4. El punto está en el cuadrante II, donde sen es positivo — consistente."
+        process: "Calculamos r = √((−3)² + 4²) = √25 = 5. Entonces sen θ = y/r = 4/5. <b>Importante:</b> r es siempre positivo. El signo del seno lo da la coordenada y, que aquí es +4. El punto está en el cuadrante II, donde sen es positivo — consistente.",
+        feedback: [
+          "¡Exacto! r = 5 (siempre positivo), y la coordenada y = 4 mantiene su signo. sen θ = +4/5.",
+          "−3/5 es la fórmula del coseno (x/r), no del seno. El seno usa la coordenada y, no la x. Buen intento, vas bien con r = 5.",
+          "El valor está bien (4/5) pero el signo no: y = +4 es positivo, así que sen θ > 0. El punto está en QII, donde el seno es positivo.",
+          "−4/3 es y/x = tan θ, no sen θ. Para el seno necesitas dividir entre r (= 5), no entre x. Recuerda que r siempre es positivo."
+        ]
       },
       {
         q: "¿Cuál es el desfase horizontal de la función y = sen(2x − π)?",
         options: ["π/2 hacia la derecha", "π hacia la derecha", "π/2 hacia la izquierda", "2π hacia la derecha"],
         answer: 0,
-        process: "Hay que <b>factorizar</b> B antes de leer el desfase: y = sen(2x − π) = sen(2(x − π/2)). El desfase es π/2 a la <b>derecha</b>. <b>Error frecuente:</b> leer π directamente sin factorizar. ¡Ese es uno de los errores más castigados en parciales!"
+        process: "Hay que <b>factorizar</b> B antes de leer el desfase: y = sen(2x − π) = sen(2(x − π/2)). El desfase es π/2 a la <b>derecha</b>. <b>Error frecuente:</b> leer π directamente sin factorizar. ¡Ese es uno de los errores más castigados en parciales!",
+        feedback: [
+          "¡Excelente! Factorizaste el 2 y leíste π/2 a la derecha. Ese paso es justo el que se equivoca todo el mundo.",
+          "Ese es el error más común del tema: leer π directamente sin factorizar. Tienes que sacar el 2 primero: sen(2(x − π/2)). Buen intento — lo importante es identificar la trampa.",
+          "El valor numérico es correcto (π/2), pero la dirección no. Como dentro queda (x − π/2), el desfase es a la <b>derecha</b>. Casi lo tienes.",
+          "2π vendría de multiplicar en lugar de dividir. Para factorizar, se divide: π/B = π/2. Vas bien con la idea de transformar la expresión."
+        ]
       },
       {
         q: "Simplificar la expresión (1 − cos²x) / sen x, asumiendo sen x ≠ 0.",
         options: ["sen x", "cos x", "1", "tan x"],
         answer: 0,
-        process: "Por la identidad pitagórica, 1 − cos²x = sen²x. Entonces (sen²x) / sen x = sen x. <b>Tip:</b> reconocer 1 − cos²x = sen²x es uno de los pasos más útiles en simplificación de identidades."
+        process: "Por la identidad pitagórica, 1 − cos²x = sen²x. Entonces (sen²x) / sen x = sen x. <b>Tip:</b> reconocer 1 − cos²x = sen²x es uno de los pasos más útiles en simplificación de identidades.",
+        feedback: [
+          "¡Bien! Reconociste 1 − cos²x = sen²x y simplificaste. Ese paso es oro para identidades.",
+          "Casi — el numerador 1 − cos²x se convierte en sen²x (no en cos²x). Al dividir entre sen x queda sen x, no cos x. Buen intento, solo se cruzaron los nombres.",
+          "1 saldría si el numerador y denominador fueran iguales, pero 1 − cos²x = sen²x ≠ sen x. Te falta un paso de simplificación. Sigue con la identidad pitagórica.",
+          "tan x = sen/cos, y aquí no aparece cos en el denominador. Mira de nuevo: 1 − cos²x = sen²x, y al dividir entre sen x queda solamente sen x."
+        ]
       },
       {
         q: "Resolver tan x = −1 en el intervalo [0, 2π).",
         options: ["3π/4 y 7π/4", "π/4 y 5π/4", "3π/4 solamente", "π/4 y 3π/4"],
         answer: 0,
-        process: "La tangente es −1 cuando el ángulo de referencia es π/4 y nos encontramos en cuadrantes donde tan es negativa: II y IV. En cuadrante II: π − π/4 = 3π/4. En cuadrante IV: 2π − π/4 = 7π/4. <b>Error frecuente:</b> dar π/4 y 5π/4 (eso correspondería a tan = +1)."
+        process: "La tangente es −1 cuando el ángulo de referencia es π/4 y nos encontramos en cuadrantes donde tan es negativa: II y IV. En cuadrante II: π − π/4 = 3π/4. En cuadrante IV: 2π − π/4 = 7π/4. <b>Error frecuente:</b> dar π/4 y 5π/4 (eso correspondería a tan = +1).",
+        feedback: [
+          "¡Bien! Identificaste que tan negativa vive en QII y QIV, con ángulo de referencia π/4.",
+          "Esos son los ángulos donde tan = +1 (cuadrantes I y III, donde sen y cos tienen el mismo signo). Para tan negativa hay que ir a QII y QIV. Vas bien con el ángulo de referencia.",
+          "Buen comienzo, pero te faltó una solución. La tangente vale −1 dos veces en [0, 2π): en QII (3π/4) y en QIV (7π/4). Recuerda el período de tan: π.",
+          "π/4 da tan = +1, no −1. Solo 3π/4 cumple del par que mencionaste, y aún falta la solución de QIV (7π/4)."
+        ]
       },
       {
         q: "Si tan θ = −2 y θ está en el cuadrante IV, ¿cuánto vale sen θ?",
         options: ["−2/√5", "2/√5", "−1/√5", "−2/3"],
         answer: 0,
-        process: "Construimos un triángulo de referencia con cateto opuesto |2| y adyacente |1|, hipotenusa √5. Como θ está en cuadrante IV, sen θ es <b>negativo</b> y cos θ positivo. Por tanto sen θ = −2/√5. Puedes racionalizar: −2√5/5. <b>Error frecuente:</b> mezclar signos."
+        process: "Construimos un triángulo de referencia con cateto opuesto |2| y adyacente |1|, hipotenusa √5. Como θ está en cuadrante IV, sen θ es <b>negativo</b> y cos θ positivo. Por tanto sen θ = −2/√5. Puedes racionalizar: −2√5/5. <b>Error frecuente:</b> mezclar signos.",
+        feedback: [
+          "¡Exacto! Triángulo de referencia con catetos 2 y 1, hipotenusa √5, y en QIV el seno es negativo.",
+          "El valor está bien (2/√5) pero el signo no: en QIV el seno es <b>negativo</b>. Vas bien con el triángulo de referencia.",
+          "Confundiste cateto opuesto con adyacente. Como tan = opuesto/adyacente = −2, el opuesto es 2 (en magnitud), no 1. Casi — solo invertiste los lados.",
+          "Olvidaste calcular la hipotenusa: √(2² + 1²) = √5, no 3. El 3 no aparece por ningún lado. Sigue con Pitágoras en el triángulo de referencia."
+        ]
       },
       {
         q: "Un triángulo rectángulo tiene hipotenusa de 8 cm y uno de sus ángulos agudos mide 30°. ¿Cuál es su área?",
         options: ["8√3 cm²", "16√3 cm²", "4√3 cm²", "16 cm²"],
         answer: 0,
-        process: "Cateto opuesto a 30°: 8·sen(30°) = 4. Cateto adyacente: 8·cos(30°) = 4√3. Área = (1/2)·(4)·(4√3) = 8√3 cm². <b>Tip:</b> en un triángulo rectángulo, el área se calcula con los dos catetos, no con la hipotenusa."
+        process: "Cateto opuesto a 30°: 8·sen(30°) = 4. Cateto adyacente: 8·cos(30°) = 4√3. Área = (1/2)·(4)·(4√3) = 8√3 cm². <b>Tip:</b> en un triángulo rectángulo, el área se calcula con los dos catetos, no con la hipotenusa.",
+        feedback: [
+          "¡Bien! Hallaste los dos catetos (4 y 4√3) y aplicaste (base·altura)/2.",
+          "Te faltó dividir entre 2 al final. La fórmula del área es (cateto₁·cateto₂)/2, no el producto solo. Cerca — solo el factor 1/2 te faltó.",
+          "Diste la mitad del valor correcto: parece que multiplicaste un cateto por la hipotenusa en lugar de los dos catetos entre sí. Recuerda que el área usa los dos catetos. Buen intento.",
+          "Te falta el radical √3. cos(30°) = √3/2 introduce el √3 en uno de los catetos. Solo te falta arrastrar ese radical hasta el final."
+        ]
       },
       {
         q: "¿Cuál es el valor exacto de sen(7π/6)?",
         options: ["−1/2", "1/2", "−√3/2", "√3/2"],
         answer: 0,
-        process: "7π/6 está en el cuadrante III. Ángulo de referencia: 7π/6 − π = π/6. sen(π/6) = 1/2, pero en cuadrante III el seno es <b>negativo</b>: sen(7π/6) = −1/2. <b>Error frecuente:</b> equivocar el cuadrante o confundir con −√3/2 (eso sería sen(4π/3))."
+        process: "7π/6 está en el cuadrante III. Ángulo de referencia: 7π/6 − π = π/6. sen(π/6) = 1/2, pero en cuadrante III el seno es <b>negativo</b>: sen(7π/6) = −1/2. <b>Error frecuente:</b> equivocar el cuadrante o confundir con −√3/2 (eso sería sen(4π/3)).",
+        feedback: [
+          "¡Excelente! Ángulo de referencia π/6, cuadrante III → seno negativo. Combinación perfecta.",
+          "El valor numérico está bien (1/2) pero el signo no: 7π/6 cae en QIII, donde el seno es negativo. Cerca — solo te faltó el signo.",
+          "Ese sería sen(4π/3), donde el ángulo de referencia es π/3 (no π/6). El ángulo de referencia de 7π/6 es π − π/6 desde el otro lado: π/6. Buen intento.",
+          "Doble error: ángulo de referencia equivocado y signo equivocado. La idea es buena (usar el ángulo de referencia), solo te falta práctica con los múltiplos de π/6 y π/3."
+        ]
       },
       {
         q: "Si cos θ = −1/2 y sen θ > 0, ¿cuál es el valor de θ en [0, 2π)?",
         options: ["2π/3", "4π/3", "π/3", "5π/3"],
         answer: 0,
-        process: "cos θ = −1/2 ocurre en cuadrantes II y III. Como además sen θ > 0, debe ser cuadrante II. El ángulo de referencia es π/3 (porque cos(π/3)=1/2), entonces θ = π − π/3 = 2π/3. <b>Tip:</b> combinar dos condiciones (valor + signo) determina el cuadrante de forma única."
+        process: "cos θ = −1/2 ocurre en cuadrantes II y III. Como además sen θ > 0, debe ser cuadrante II. El ángulo de referencia es π/3 (porque cos(π/3)=1/2), entonces θ = π − π/3 = 2π/3. <b>Tip:</b> combinar dos condiciones (valor + signo) determina el cuadrante de forma única.",
+        feedback: [
+          "¡Bien! Combinaste cos = −1/2 con sen > 0 para deducir QII, y luego π − π/3 = 2π/3.",
+          "En 4π/3 el coseno también vale −1/2, pero ahí estamos en QIII, donde el seno es <b>negativo</b>. La condición sen > 0 descarta este ángulo. Cerca — solo se te coló el signo del seno.",
+          "cos(π/3) = +1/2, no −1/2. Cuida el signo: si el coseno debe ser negativo, π/3 (que está en QI) no sirve. Buen intento, ya tienes el ángulo de referencia.",
+          "En 5π/3 estamos en QIV, donde cos > 0 (vale +1/2). No coincide con cos = −1/2. Solo tienes que filtrar mejor por los signos del cuadrante."
+        ]
       }
     ]
   },
@@ -1219,61 +1339,121 @@ const quizzes = {
         q: "Resolver 2 sen²x − sen x − 1 = 0 en [0, 2π).",
         options: ["π/2, 7π/6, 11π/6", "7π/6, 11π/6", "π/2, π/6, 5π/6", "π/6, 5π/6, 3π/2"],
         answer: 0,
-        process: "Factorizamos como ecuación cuadrática en sen x: (2 sen x + 1)(sen x − 1) = 0. <br>• sen x = −1/2 → x = 7π/6 y 11π/6 (cuadrantes III y IV).<br>• sen x = 1 → x = π/2.<br>Las tres soluciones son π/2, 7π/6, 11π/6. <b>Error frecuente:</b> resolver solo una rama o dividir por sen x y perder soluciones."
+        process: "Factorizamos como ecuación cuadrática en sen x: (2 sen x + 1)(sen x − 1) = 0. <br>• sen x = −1/2 → x = 7π/6 y 11π/6 (cuadrantes III y IV).<br>• sen x = 1 → x = π/2.<br>Las tres soluciones son π/2, 7π/6, 11π/6. <b>Error frecuente:</b> resolver solo una rama o dividir por sen x y perder soluciones.",
+        feedback: [
+          "¡Excelente! Factorizaste como cuadrática en sen x y resolviste las dos ramas. Eso es razonamiento de nivel avanzado.",
+          "Te faltó la solución de la rama sen x = 1 (que da π/2). Trataste solo una ecuación: hay que resolver ambos factores. Vas muy bien, solo te faltó esa pieza.",
+          "Para sen x = 1, π/2 está bien. Pero π/6 y 5π/6 son las soluciones de sen x = +1/2, no de las raíces de esta ecuación. Cerca — confundiste el signo.",
+          "3π/2 da sen = −1, no = 1. Y π/6, 5π/6 son para sen = +1/2, no para sen = −1/2. Buen intento — factorizar como cuadrática es la idea correcta."
+        ]
       },
       {
         q: "Usando la fórmula de suma, calcular el valor exacto de sen(75°).",
         options: ["(√6 + √2)/4", "(√6 − √2)/4", "(√2 + √3)/2", "(√6 + √2)/2"],
         answer: 0,
-        process: "75° = 45° + 30°. Aplicamos sen(a+b) = sen a cos b + cos a sen b:<br>sen 75° = sen45°·cos30° + cos45°·sen30° = (√2/2)(√3/2) + (√2/2)(1/2) = √6/4 + √2/4 = (√6 + √2)/4. <b>Error frecuente:</b> confundir con cos(75°) = (√6 − √2)/4."
+        process: "75° = 45° + 30°. Aplicamos sen(a+b) = sen a cos b + cos a sen b:<br>sen 75° = sen45°·cos30° + cos45°·sen30° = (√2/2)(√3/2) + (√2/2)(1/2) = √6/4 + √2/4 = (√6 + √2)/4. <b>Error frecuente:</b> confundir con cos(75°) = (√6 − √2)/4.",
+        feedback: [
+          "¡Bien! 75° = 45° + 30°, y aplicaste correctamente sen(a+b) con signo +.",
+          "Cuidado: ese es el valor de cos(75°), no sen(75°). Las fórmulas se parecen mucho — la de coseno usa signo −, la de seno usa signo +. Vas muy cerca.",
+          "Mezclaste los términos. El desarrollo correcto da productos como (√2/2)(√3/2) = √6/4, no √2 y √3 sueltos por separado. Recuerda multiplicar antes de sumar.",
+          "El denominador correcto es 4, no 2. Cada producto (√a/2)(√b/2) genera el 4 en el denominador. Buen intento — solo te faltó el factor."
+        ]
       },
       {
         q: "Si sen θ = 3/5 y θ está en el cuadrante II, ¿cuánto vale sen(2θ)?",
         options: ["−24/25", "24/25", "6/5", "−6/25"],
         answer: 0,
-        process: "Primero hallamos cos θ. En cuadrante II, cos θ = −4/5. Aplicamos sen(2θ) = 2 sen θ cos θ = 2·(3/5)·(−4/5) = −24/25. <b>Error frecuente:</b> usar 2 sen θ en lugar de 2 sen θ cos θ, o no asignar el signo correcto al coseno."
+        process: "Primero hallamos cos θ. En cuadrante II, cos θ = −4/5. Aplicamos sen(2θ) = 2 sen θ cos θ = 2·(3/5)·(−4/5) = −24/25. <b>Error frecuente:</b> usar 2 sen θ en lugar de 2 sen θ cos θ, o no asignar el signo correcto al coseno.",
+        feedback: [
+          "¡Bien! cos θ = −4/5 en QII, y sen(2θ) = 2 sen θ cos θ. Aplicación impecable de la fórmula.",
+          "Valor numérico correcto, pero signo equivocado. cos θ es negativo en QII, lo que vuelve negativo el producto. Casi — solo te faltó arrastrar el signo.",
+          "6/5 saldría de calcular solo 2 sen θ, omitiendo cos θ. La fórmula correcta es sen(2θ) = 2 sen θ cos θ. No olvides multiplicar también por el coseno.",
+          "Mezclaste valores: cos θ = −4/5 (no −1/5). Con 2·(3/5)·(−4/5) sale −24/25, no −6/25. Buen intento, solo recalcula el coseno."
+        ]
       },
       {
         q: "¿Cuántas soluciones tiene tan(2x) = 1 en [0, 2π)?",
         options: ["4 soluciones: π/8, 5π/8, 9π/8, 13π/8", "2 soluciones: π/8 y 5π/8", "4 soluciones: π/4, 3π/4, 5π/4, 7π/4", "1 solución: π/8"],
         answer: 0,
-        process: "tan(2x) = 1 ⟹ 2x = π/4 + nπ ⟹ x = π/8 + nπ/2. Para [0, 2π) tomamos n = 0, 1, 2, 3: x = π/8, 5π/8, 9π/8, 13π/8 (cuatro soluciones). <b>Error frecuente:</b> olvidar que un cambio de frecuencia (B=2) <i>duplica</i> el número de soluciones en el intervalo."
+        process: "tan(2x) = 1 ⟹ 2x = π/4 + nπ ⟹ x = π/8 + nπ/2. Para [0, 2π) tomamos n = 0, 1, 2, 3: x = π/8, 5π/8, 9π/8, 13π/8 (cuatro soluciones). <b>Error frecuente:</b> olvidar que un cambio de frecuencia (B=2) <i>duplica</i> el número de soluciones en el intervalo.",
+        feedback: [
+          "¡Excelente! Como B = 2 duplica la frecuencia, hay 4 soluciones en [0, 2π).",
+          "Encontraste las dos primeras pero te faltan dos. Como B = 2, la función tan(2x) tiene período π/2 — caben 4 soluciones en [0, 2π). Vas bien con el método.",
+          "Esas son las soluciones de tan x = 1 (sin el 2 dentro). Aquí, como B = 2, el período de la tangente se vuelve π/2 y aparecen más soluciones. Cerca — solo te faltó dividir.",
+          "Solo es la primera solución. Como tan tiene período π y aquí está acelerada por 2, hay 4 soluciones en el intervalo. Buen inicio, te faltó agregar nπ/2 al resultado."
+        ]
       },
       {
         q: "Identifica amplitud, período y desfase de y = −2 sen(3x + π).",
         options: ["Amplitud 2, período 2π/3, desfase π/3 a la izquierda", "Amplitud −2, período 3, desfase π a la izquierda", "Amplitud 2, período 2π, desfase π/3 a la derecha", "Amplitud 2, período 2π/3, desfase π a la izquierda"],
         answer: 0,
-        process: "Factorizamos: y = −2 sen(3(x + π/3)). <br>• Amplitud = |−2| = 2 (siempre positiva).<br>• Período = 2π/|3| = 2π/3.<br>• Desfase = π/3 a la <b>izquierda</b> (porque x + π/3 = x − (−π/3)).<br><b>Error frecuente:</b> no factorizar B y leer el desfase como π."
+        process: "Factorizamos: y = −2 sen(3(x + π/3)). <br>• Amplitud = |−2| = 2 (siempre positiva).<br>• Período = 2π/|3| = 2π/3.<br>• Desfase = π/3 a la <b>izquierda</b> (porque x + π/3 = x − (−π/3)).<br><b>Error frecuente:</b> no factorizar B y leer el desfase como π.",
+        feedback: [
+          "¡Excelente! Factorización limpia: amplitud |−2|=2, período 2π/3 y desfase π/3 a la izquierda.",
+          "Tres detalles: la amplitud es siempre positiva (|−2|=2), el período es 2π/|B| (no B), y para el desfase hay que factorizar. Buen intento — son los tres errores más comunes juntos.",
+          "El período correcto es 2π/|B| = 2π/3, no 2π. Y al factorizar (x + π/3), el desfase queda a la izquierda. Cerca, pero te faltaron dos pasos.",
+          "Casi — pero olvidaste factorizar B antes de leer el desfase. Hay que dividir π entre 3 para obtener π/3. Vas muy bien con la amplitud y el período."
+        ]
       },
       {
         q: "¿Cuál es el valor de arccos(cos(7π/6))?",
         options: ["5π/6", "7π/6", "−7π/6", "π/6"],
         answer: 0,
-        process: "7π/6 NO está en [0, π], así que arccos no nos devuelve 7π/6. Calculamos cos(7π/6) = −√3/2. Ahora buscamos x ∈ [0, π] con cos x = −√3/2: x = π − π/6 = 5π/6. <b>Error frecuente:</b> creer que arccos(cos θ) = θ siempre — solo se cumple cuando θ ∈ [0, π]."
+        process: "7π/6 NO está en [0, π], así que arccos no nos devuelve 7π/6. Calculamos cos(7π/6) = −√3/2. Ahora buscamos x ∈ [0, π] con cos x = −√3/2: x = π − π/6 = 5π/6. <b>Error frecuente:</b> creer que arccos(cos θ) = θ siempre — solo se cumple cuando θ ∈ [0, π].",
+        feedback: [
+          "¡Bien! Como 7π/6 está fuera del rango principal, arccos devuelve el ángulo de [0, π] con el mismo coseno: 5π/6.",
+          "Ese es el error clásico: arccos(cos θ) no siempre devuelve θ. Solo cuando θ ∈ [0, π], y 7π/6 está fuera. Buen intento — esa propiedad falla justo en estos casos.",
+          "arccos siempre devuelve un valor en [0, π], es decir positivo. Un valor negativo nunca entra en su rango. Vas bien con la idea, solo cuida los signos del rango.",
+          "cos(7π/6) = −√3/2 (no +√3/2). Como el valor es negativo, arccos devuelve un ángulo mayor que π/2: 5π/6. Cerca — solo se te coló el signo del coseno."
+        ]
       },
       {
         q: "¿Es válida la identidad (sen x + cos x)² − 1 = sen(2x)?",
         options: ["Sí: al desarrollar se obtiene 1 + 2 sen x cos x − 1 = sen(2x)", "No, el resultado es sen x + cos x", "Sí, porque (a+b)² siempre vale a² + b²", "No, sobra un 1"],
         answer: 0,
-        process: "Desarrollamos: (sen x + cos x)² = sen²x + 2 sen x cos x + cos²x = 1 + 2 sen x cos x. Restamos 1: 2 sen x cos x = sen(2x). ¡La identidad es correcta! <b>Tip:</b> reconocer sen²+cos²=1 dentro del desarrollo es clave para muchas identidades."
+        process: "Desarrollamos: (sen x + cos x)² = sen²x + 2 sen x cos x + cos²x = 1 + 2 sen x cos x. Restamos 1: 2 sen x cos x = sen(2x). ¡La identidad es correcta! <b>Tip:</b> reconocer sen²+cos²=1 dentro del desarrollo es clave para muchas identidades.",
+        feedback: [
+          "¡Sí! Al desarrollar el cuadrado aparece sen²+cos² = 1, que se cancela con el −1, dejando 2 sen x cos x = sen(2x).",
+          "Esa simplificación es incorrecta. Al elevar al cuadrado aparecen sen², cos² y el doble producto. El −1 elimina sen²+cos², dejando justo sen(2x). Buen intento — el desarrollo importa.",
+          "Cuidado: (a+b)² ≠ a²+b². El término del doble producto 2ab es justo el que vale sen(2x) aquí. Esa propiedad incorrecta es el error más común al expandir.",
+          "El 1 que aparece de sen²+cos² se cancela exactamente con el −1 que está restando. No sobra nada. Buen intento — solo te faltó hacer el desarrollo completo."
+        ]
       },
       {
         q: "Una escalera de 10 m forma un ángulo de 70° con el suelo. Otra de 8 m forma 60°. ¿Cuál alcanza mayor altura sobre la pared?",
         options: ["La de 10 m, aproximadamente 2.5 m más arriba", "La de 8 m", "Llegan a la misma altura", "La de 10 m, aproximadamente 5 m más arriba"],
         answer: 0,
-        process: "Altura alcanzada = longitud × sen(ángulo). <br>• Escalera 1: 10·sen(70°) ≈ 10·0.9397 ≈ 9.40 m.<br>• Escalera 2: 8·sen(60°) ≈ 8·0.8660 ≈ 6.93 m.<br>Diferencia ≈ 2.47 m. Gana la de 10 m. <b>Tip:</b> no basta con tener una escalera más larga — el ángulo importa, pero aquí 70° y 10 m vencen."
+        process: "Altura alcanzada = longitud × sen(ángulo). <br>• Escalera 1: 10·sen(70°) ≈ 10·0.9397 ≈ 9.40 m.<br>• Escalera 2: 8·sen(60°) ≈ 8·0.8660 ≈ 6.93 m.<br>Diferencia ≈ 2.47 m. Gana la de 10 m. <b>Tip:</b> no basta con tener una escalera más larga — el ángulo importa, pero aquí 70° y 10 m vencen.",
+        feedback: [
+          "¡Bien! altura = longitud · sen(ángulo). 10·sen(70°) ≈ 9.4 m supera a 8·sen(60°) ≈ 6.9 m.",
+          "La intuición de que el ángulo mayor siempre gana no se aplica aquí: la longitud también pesa. 10·sen(70°) ≈ 9.4 m > 8·sen(60°) ≈ 6.9 m. Buen intento, solo faltó hacer el cálculo.",
+          "No llegan a la misma altura: ~9.4 m vs ~6.9 m. La longitud importa tanto como el ángulo. Sigue practicando con la fórmula altura = L · sen θ.",
+          "Vas por buen camino pero la diferencia exacta es ~2.5 m, no 5 m. Calcula 10·sen(70°) − 8·sen(60°) con más cuidado decimal."
+        ]
       },
       {
         q: "¿Cuántas soluciones tiene sen x · cos x = 0 en [0, 2π)?",
         options: ["4 soluciones", "2 soluciones", "3 soluciones", "Infinitas"],
         answer: 0,
-        process: "Producto cero implica que al menos un factor es cero. <br>• sen x = 0 → x = 0, π.<br>• cos x = 0 → x = π/2, 3π/2.<br>Total: 4 soluciones distintas. <b>Error frecuente — clásico:</b> dividir por cos x para obtener tan x = 0 y perder las dos soluciones donde cos x = 0. Nunca dividas por una expresión que podría ser cero; factoriza."
+        process: "Producto cero implica que al menos un factor es cero. <br>• sen x = 0 → x = 0, π.<br>• cos x = 0 → x = π/2, 3π/2.<br>Total: 4 soluciones distintas. <b>Error frecuente — clásico:</b> dividir por cos x para obtener tan x = 0 y perder las dos soluciones donde cos x = 0. Nunca dividas por una expresión que podría ser cero; factoriza.",
+        feedback: [
+          "¡Excelente! 4 soluciones: dos de sen=0 (0, π) y dos de cos=0 (π/2, 3π/2). No dividiste — factorizaste.",
+          "Probablemente dividiste por cos x y obtuviste tan x = 0 (con 2 soluciones). Pero al dividir perdiste las raíces donde cos = 0. Es el error clásico de este tipo de ecuaciones — nunca dividas por algo que puede ser cero.",
+          "Cada factor aporta dos soluciones: sen=0 → {0, π}, cos=0 → {π/2, 3π/2}. Total 4. Cerca — solo te faltó una.",
+          "Dentro de [0, 2π) hay un número finito de raíces — exactamente 4. Infinitas habría si el intervalo fuera todo el eje. Buen intento — el conteo se acota al intervalo."
+        ]
       },
       {
         q: "Si el punto (−1, −√3) está en el lado terminal del ángulo θ, ¿cuál es el valor de sen(2θ)?",
         options: ["√3/2", "−√3/2", "1/2", "√3"],
         answer: 0,
-        process: "r = √(1 + 3) = 2. Entonces sen θ = −√3/2 y cos θ = −1/2 (el punto está en cuadrante III). Aplicamos sen(2θ) = 2 sen θ cos θ = 2·(−√3/2)·(−1/2) = √3/2. <b>Tip:</b> los dos negativos se multiplican y dan positivo — eso es coherente con que 2θ caiga en el cuadrante I."
+        process: "r = √(1 + 3) = 2. Entonces sen θ = −√3/2 y cos θ = −1/2 (el punto está en cuadrante III). Aplicamos sen(2θ) = 2 sen θ cos θ = 2·(−√3/2)·(−1/2) = √3/2. <b>Tip:</b> los dos negativos se multiplican y dan positivo — eso es coherente con que 2θ caiga en el cuadrante I.",
+        feedback: [
+          "¡Bien! r=2, sen θ y cos θ negativos en QIII, pero (−)(−) da +. sen(2θ) = √3/2.",
+          "Cálculo casi correcto pero olvidaste que (−)(−) = +. Dos números negativos multiplicados dan positivo. Cerca — solo el signo final.",
+          "Te faltó el factor 2 de la fórmula sen(2θ) = 2 sen θ cos θ. Con el 2, el resultado es √3/2, no 1/2. Buen intento, solo te quedó pendiente la constante.",
+          "Te falta dividir entre 2: 2·(√3/2)·(1/2) = √3/2, no √3 entero. Cerca — pero el producto de las fracciones reduce el resultado."
+        ]
       }
     ]
   }
@@ -1830,6 +2010,7 @@ renderQuiz('avanzado');
     return {
       q: q.q,
       options: idx.map(i=>q.options[i]),
+      feedback: q.feedback ? idx.map(i=>q.feedback[i]) : null,
       answer: idx.indexOf(q.answer),
       process: q.process
     };
@@ -1893,13 +2074,13 @@ renderQuiz('avanzado');
       document.querySelectorAll('#doors .door').forEach(d=>d.classList.add('disabled'));
       if(isCorrect){
         doorEl.classList.add('correct');
-        handleCorrect(q);
+        handleCorrect(q, idx);
       } else {
         doorEl.classList.add('wrong');
         // resaltar la correcta
         const correctDoor = document.querySelector(`#doors .door[data-i="${q.answer}"]`);
         if(correctDoor) correctDoor.classList.add('correct');
-        handleWrong(q);
+        handleWrong(q, idx);
       }
     });
   }
@@ -1942,25 +2123,27 @@ renderQuiz('avanzado');
     }, 360);
   }
 
-  function handleCorrect(q){
+  function handleCorrect(q, chosenIdx){
     state.hp += 10;
     const reaction = document.getElementById('reaction');
     reaction.textContent = '¡ACIERTO! +10 ❤️';
     reaction.classList.add('show','correct');
     spawnParticles(true);
 
+    const specific = (q.feedback && q.feedback[chosenIdx]) ? q.feedback[chosenIdx] : '';
     const fb = document.getElementById('gameFeedback');
     fb.classList.add('show','correct');
     fb.innerHTML = `
       <h4>✅ ${pick(CORRECT_MSGS)}</h4>
-      <p><b>¿Por qué es correcta?</b> ${q.process}</p>
+      ${specific ? `<p><b>Lo que hiciste bien:</b> ${specific}</p>` : ''}
+      <p><b>El razonamiento completo:</b> ${q.process}</p>
       <button class="btn success next-btn" id="nextBtn">▶ Siguiente</button>
     `;
     document.getElementById('nextBtn').addEventListener('click', advance);
     updateHUD();
   }
 
-  function handleWrong(q){
+  function handleWrong(q, chosenIdx){
     state.hp -= 10;
     state.errorsInLevel++;
     const reaction = document.getElementById('reaction');
@@ -1968,12 +2151,14 @@ renderQuiz('avanzado');
     reaction.classList.add('show','wrong');
     spawnParticles(false);
 
+    const specific = (q.feedback && q.feedback[chosenIdx]) ? q.feedback[chosenIdx] : '';
     const fb = document.getElementById('gameFeedback');
     fb.classList.add('show','wrong');
     fb.innerHTML = `
       <h4>💙 ${pick(WRONG_MSGS)}</h4>
+      ${specific ? `<p><b>Sobre tu respuesta:</b> ${specific}</p>` : ''}
       <p><b>La respuesta correcta era:</b> <span style="color:#34d399;font-weight:700">${q.options[q.answer]}</span></p>
-      <p><b>¿Por qué?</b> ${q.process}</p>
+      <p><b>El proceso completo:</b> ${q.process}</p>
       <button class="btn next-btn" id="nextBtn">▶ Siguiente</button>
     `;
     document.getElementById('nextBtn').addEventListener('click', advance);
