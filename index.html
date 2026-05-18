@@ -180,6 +180,285 @@
     .timer{font-size:1.3rem;min-width:90px}
     .card{padding:18px}
   }
+
+  /* ============ JUEGO: APRENDER JUGANDO ============ */
+  .game-card{
+    background:linear-gradient(180deg,#0b1224 0%,#1e1b4b 100%);
+    color:#e2e8f0;border:1px solid #312e81;
+  }
+  .game-card h2{color:#a5b4fc}
+  .game-card p{color:#cbd5e1}
+  .game-screen{
+    text-align:center;padding:30px 20px;
+    background:rgba(15,23,42,.5);border:1px solid #312e81;border-radius:14px;
+  }
+  .game-screen h3{color:#fbbf24;font-size:1.4rem;margin:0 0 12px}
+  .game-screen .stats-row{
+    display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:18px 0;
+  }
+  .game-screen .stat{
+    background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.4);
+    padding:10px 16px;border-radius:10px;font-size:.95rem;color:#e2e8f0;
+  }
+  .game-hud{
+    display:flex;align-items:center;justify-content:space-between;
+    background:rgba(15,23,42,.75);border:1px solid #334155;border-radius:12px;
+    padding:12px 16px;margin-bottom:14px;flex-wrap:wrap;gap:12px;
+  }
+  .hp-wrap{display:flex;align-items:center;gap:10px;flex:1;min-width:230px}
+  .hp-label{font-size:1.1rem}
+  .hp-bar{
+    flex:1;height:18px;background:rgba(0,0,0,.5);border:1px solid #334155;
+    border-radius:9px;overflow:hidden;position:relative;
+  }
+  .hp-fill{
+    height:100%;width:100%;
+    background:linear-gradient(90deg,#ef4444 0%,#f59e0b 40%,#10b981 100%);
+    transition:width .6s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 0 14px rgba(16,185,129,.6);
+    position:relative;overflow:hidden;
+  }
+  .hp-fill::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+    animation:hpShine 2.5s linear infinite;
+  }
+  @keyframes hpShine{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+  .hp-text{color:#fff;font-weight:700;min-width:60px;text-align:right;font-family:"Courier New",monospace}
+  .game-info{color:#a5b4fc;font-weight:600;font-size:.95rem;text-align:center;flex:1;min-width:180px}
+  .medals{display:flex;gap:6px;font-size:1.4rem;min-width:80px;justify-content:flex-end}
+  .medals .medal{animation:medalIn .6s cubic-bezier(.34,1.56,.64,1) backwards;filter:drop-shadow(0 0 8px #fbbf24)}
+  @keyframes medalIn{0%{transform:scale(0) rotate(-180deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+
+  .stage{
+    position:relative;height:520px;border-radius:14px;overflow:hidden;
+    border:1px solid #1e293b;
+    background:
+      radial-gradient(ellipse 60% 80% at 30% 80%, rgba(99,102,241,.25) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 80% 20%, rgba(236,72,153,.18) 0%, transparent 60%),
+      linear-gradient(180deg, #020617 0%, #0f172a 50%, #1e1b4b 100%);
+  }
+  /* estrellas usando box-shadow para muchas */
+  .stars,.stars2{
+    position:absolute;inset:0;pointer-events:none;
+  }
+  .stars::before, .stars::after, .stars2::before{
+    content:"";position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;
+    box-shadow:
+      14vw 5vh #fff, 32vw 12vh #fff, 48vw 8vh #fff, 65vw 18vh #fff, 80vw 4vh #fff,
+      8vw 22vh #fff, 24vw 30vh #fff, 42vw 26vh #fff, 58vw 34vh #fff, 72vw 28vh #fff,
+      88vw 36vh #fff, 18vw 46vh #fff, 36vw 52vh #fff, 52vw 44vh #fff, 68vw 50vh #fff,
+      82vw 56vh #fff, 6vw 62vh #fff, 28vw 70vh #fff, 44vw 64vh #fff, 60vw 72vh #fff,
+      76vw 68vh #fff, 90vw 78vh #fff, 12vw 84vh #fff, 38vw 88vh #fff, 56vw 82vh #fff,
+      66vw 90vh #fff, 84vw 86vh #fff, 22vw 16vh #fff, 50vw 18vh #fff, 70vw 38vh #fff;
+    animation:twinkle 3.5s ease-in-out infinite;
+  }
+  .stars::after{
+    box-shadow:
+      4vw 14vh #a5b4fc, 26vw 6vh #a5b4fc, 46vw 32vh #fbbf24, 62vw 10vh #a5b4fc,
+      74vw 22vh #fbbf24, 86vw 16vh #a5b4fc, 16vw 38vh #fbbf24, 30vw 58vh #a5b4fc,
+      54vw 60vh #fbbf24, 78vw 64vh #a5b4fc, 92vw 50vh #fbbf24, 38vw 76vh #a5b4fc;
+    animation-delay:1.5s;
+    animation-duration:4.5s;
+  }
+  @keyframes twinkle{0%,100%{opacity:.5}50%{opacity:1}}
+
+  /* nave: marco con paneles */
+  .ship-frame{
+    position:absolute;inset:0;pointer-events:none;
+    background:
+      linear-gradient(180deg, rgba(99,102,241,.18) 0%, transparent 12%, transparent 88%, rgba(99,102,241,.18) 100%);
+    border:2px solid rgba(99,102,241,.3);border-radius:14px;
+    box-shadow:inset 0 0 60px rgba(99,102,241,.15);
+  }
+  .ship-frame::before, .ship-frame::after{
+    content:"";position:absolute;height:14px;left:0;right:0;
+    background:repeating-linear-gradient(90deg,#312e81 0 18px,#1e1b4b 18px 36px);
+    border-top:1px solid rgba(99,102,241,.5);border-bottom:1px solid rgba(99,102,241,.5);
+  }
+  .ship-frame::before{top:0}
+  .ship-frame::after{bottom:0}
+
+  .character{
+    position:absolute;left:4%;bottom:80px;width:120px;height:140px;
+    animation:floatY 3.2s ease-in-out infinite;
+    filter:drop-shadow(0 6px 18px rgba(99,102,241,.7));
+    z-index:3;
+  }
+  @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .character.shoot{animation:shootRecoil .35s ease}
+  @keyframes shootRecoil{
+    0%{transform:translate(0,0)}
+    30%{transform:translate(-12px,0)}
+    100%{transform:translate(0,0)}
+  }
+
+  .speech{
+    position:absolute;left:140px;bottom:170px;
+    background:#fff;color:#0f172a;padding:14px 18px;border-radius:14px;
+    max-width:340px;font-size:.92rem;line-height:1.45;font-weight:500;
+    box-shadow:0 12px 32px rgba(0,0,0,.5);z-index:4;
+    animation:speechIn .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  .speech::before{
+    content:"";position:absolute;left:-12px;bottom:18px;
+    border:11px solid transparent;border-right-color:#fff;border-left:none;
+  }
+  @keyframes speechIn{0%{transform:translateY(10px) scale(.95);opacity:0}100%{transform:translateY(0) scale(1);opacity:1}}
+
+  .doors{
+    position:absolute;right:3%;top:50%;transform:translateY(-50%);
+    display:grid;grid-template-columns:1fr 1fr;gap:14px;width:42%;max-width:340px;
+    z-index:3;
+  }
+  .door{
+    position:relative;background:linear-gradient(180deg,#475569 0%,#1e293b 100%);
+    border:2px solid #64748b;border-radius:10px 10px 4px 4px;
+    padding:14px 10px;text-align:center;cursor:pointer;
+    color:#f1f5f9;font-weight:600;font-size:.88rem;
+    min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    overflow:hidden;transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    box-shadow:inset 0 -8px 16px rgba(0,0,0,.4);
+  }
+  .door::before{
+    content:"";position:absolute;left:50%;top:8px;transform:translateX(-50%);
+    width:18px;height:6px;background:#fbbf24;border-radius:3px;
+    box-shadow:0 0 8px #fbbf24;
+  }
+  .door::after{
+    content:"";position:absolute;right:8px;top:50%;width:5px;height:5px;
+    background:#94a3b8;border-radius:50%;box-shadow:0 0 4px #475569;
+  }
+  .door .door-label{
+    background:rgba(0,0,0,.4);padding:4px 8px;border-radius:6px;
+    margin-top:8px;font-family:"Courier New",monospace;font-size:.85rem;
+    border:1px dashed rgba(165,180,252,.4);max-width:100%;
+    word-break:break-word;line-height:1.25;
+  }
+  .door:not(.disabled):hover{
+    transform:translateY(-3px);border-color:#a5b4fc;
+    box-shadow:inset 0 -8px 16px rgba(0,0,0,.4), 0 0 24px rgba(165,180,252,.5);
+  }
+  .door.disabled{cursor:not-allowed;opacity:.7}
+  .door.correct{
+    background:linear-gradient(180deg,#10b981 0%,#065f46 100%);
+    border-color:#34d399;
+    animation:doorOpen 1s ease forwards;
+  }
+  .door.wrong{
+    background:linear-gradient(180deg,#ef4444 0%,#7f1d1d 100%);
+    border-color:#fca5a5;
+    animation:doorShake .55s ease;
+  }
+  @keyframes doorOpen{
+    0%{transform:translateY(0) scaleX(1);opacity:1}
+    35%{transform:translateY(0) scaleX(.4)}
+    70%{transform:translateY(-6px) scaleX(.05);opacity:.8}
+    100%{transform:translateY(-10px) scaleX(0);opacity:0}
+  }
+  @keyframes doorShake{
+    0%,100%{transform:translateX(0)}
+    20%{transform:translateX(-10px) rotate(-2deg)}
+    40%{transform:translateX(10px) rotate(2deg)}
+    60%{transform:translateX(-8px) rotate(-1deg)}
+    80%{transform:translateX(8px) rotate(1deg)}
+  }
+
+  .projectile{
+    position:absolute;width:34px;height:6px;
+    background:linear-gradient(90deg,rgba(251,191,36,0) 0%,#fbbf24 40%,#fff 100%);
+    border-radius:3px;
+    box-shadow:0 0 16px #fbbf24, 0 0 30px #f59e0b;
+    opacity:0;pointer-events:none;z-index:5;
+    transform-origin:center;
+  }
+  .projectile.active{opacity:1}
+
+  .reaction{
+    position:absolute;top:18px;left:50%;transform:translateX(-50%);
+    font-size:1.4rem;font-weight:800;color:#fff;
+    padding:12px 22px;border-radius:12px;display:none;z-index:6;
+    text-shadow:0 2px 8px rgba(0,0,0,.4);
+  }
+  .reaction.show.correct{
+    display:block;background:linear-gradient(135deg,#10b981,#059669);
+    box-shadow:0 0 28px rgba(16,185,129,.7);
+    animation:popIn .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  .reaction.show.wrong{
+    display:block;background:linear-gradient(135deg,#ef4444,#b91c1c);
+    box-shadow:0 0 28px rgba(239,68,68,.7);
+    animation:popIn .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes popIn{
+    0%{transform:translateX(-50%) translateY(-15px) scale(.6);opacity:0}
+    100%{transform:translateX(-50%) translateY(0) scale(1);opacity:1}
+  }
+
+  .game-feedback{
+    background:rgba(99,102,241,.12);border:1px solid rgba(165,180,252,.35);
+    border-radius:12px;padding:16px 20px;margin-top:14px;color:#e2e8f0;
+    display:none;
+  }
+  .game-feedback.show{display:block;animation:fadeUp .35s ease}
+  .game-feedback.correct{background:rgba(16,185,129,.15);border-color:rgba(52,211,153,.45)}
+  .game-feedback.wrong{background:rgba(239,68,68,.12);border-color:rgba(248,113,113,.4)}
+  .game-feedback h4{margin:0 0 8px;font-size:1.05rem;color:#fbbf24}
+  .game-feedback.correct h4{color:#34d399}
+  .game-feedback.wrong h4{color:#fca5a5}
+  .game-feedback p{margin:6px 0;color:#e2e8f0;font-size:.95rem}
+  .game-feedback .next-btn{margin-top:10px}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  .game-victory, .game-defeat, .game-level-complete{
+    text-align:center;padding:40px 24px;border-radius:14px;color:#fff;
+    background:linear-gradient(135deg,#1e1b4b 0%,#581c87 50%,#831843 100%);
+    position:relative;overflow:hidden;
+  }
+  .game-victory::before, .game-defeat::before{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.15) 1px,transparent 1px);
+    background-size:20px 20px;opacity:.4;
+  }
+  .game-victory h2{
+    font-size:clamp(1.8rem,5vw,3rem);margin:0 0 14px;font-weight:900;
+    background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa,#34d399);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:rainbow 4s linear infinite;background-size:200% 100%;
+  }
+  @keyframes rainbow{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+  .medal-row{display:flex;justify-content:center;gap:18px;margin:24px 0;flex-wrap:wrap}
+  .big-medal{
+    font-size:3.5rem;animation:medalPulse 2s ease-in-out infinite;
+    filter:drop-shadow(0 0 18px #fbbf24);
+  }
+  .big-medal:nth-child(2){animation-delay:.3s}
+  .big-medal:nth-child(3){animation-delay:.6s}
+  @keyframes medalPulse{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.15) rotate(8deg)}}
+  .motivational{
+    background:rgba(255,255,255,.1);border-radius:12px;padding:18px;margin:18px auto;
+    max-width:600px;font-size:1.05rem;line-height:1.6;
+  }
+
+  /* confetti container */
+  .confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .confetti i{
+    position:absolute;top:-20px;width:10px;height:14px;
+    animation:confettiFall linear forwards;
+  }
+  @keyframes confettiFall{
+    to{transform:translateY(110vh) rotate(720deg);opacity:0}
+  }
+
+  @media (max-width:640px){
+    .stage{height:580px}
+    .character{width:80px;height:96px;left:5%;bottom:60px}
+    .speech{left:90px;bottom:170px;max-width:60%;font-size:.82rem;padding:10px 12px}
+    .doors{width:90%;right:5%;left:5%;top:auto;bottom:18px;transform:none;max-width:none}
+    .door{min-height:64px;font-size:.78rem;padding:8px 6px}
+    .door .door-label{font-size:.78rem;padding:3px 6px}
+    .ship-frame::before,.ship-frame::after{height:10px}
+  }
 </style>
 </head>
 <body>
@@ -208,6 +487,7 @@
     <button class="tab-btn" data-tab="basico">🟢 Parcial básico</button>
     <button class="tab-btn" data-tab="intermedio">🟡 Parcial intermedio</button>
     <button class="tab-btn" data-tab="avanzado">🔴 Parcial avanzado</button>
+    <button class="tab-btn" data-tab="juego">🚀 Aprender jugando</button>
   </div>
 </nav>
 
@@ -410,6 +690,104 @@
 <!-- ===== PARCIAL AVANZADO ===== -->
 <section class="panel" id="panel-avanzado">
   <div id="quiz-avanzado"></div>
+</section>
+
+<!-- ===== APRENDER JUGANDO ===== -->
+<section class="panel" id="panel-juego">
+  <div class="card game-card">
+    <h2>🚀 Aprender jugando · Nave Trigonometría-1</h2>
+    <p>Estás a bordo de una nave espacial en misión por la galaxia de la trigonometría. Cada portal te lleva a un nuevo mundo… si eliges la respuesta correcta. ¡Buena suerte, cadete!</p>
+
+    <div id="game-start-screen" class="game-screen">
+      <h3>🌌 Briefing de la misión</h3>
+      <div class="stats-row">
+        <div class="stat">❤️ Vida inicial: <b>100</b></div>
+        <div class="stat">✅ Acierto: <b>+10</b></div>
+        <div class="stat">❌ Error: <b>−10</b></div>
+        <div class="stat">🏅 Medalla: <b>nivel perfecto</b></div>
+      </div>
+      <p style="max-width:560px;margin:14px auto;color:#cbd5e1">
+        Cada mundo tiene <b>10 preguntas</b>. Para avanzar al siguiente mundo necesitas responder <b>todas correctamente</b>. Si fallas alguna, puedes reintentar el nivel cuantas veces quieras — equivocarse es parte del aprendizaje.
+      </p>
+      <button class="btn success" id="gameStartBtn" style="font-size:1.1rem;padding:12px 28px;margin-top:8px">▶ Iniciar misión</button>
+    </div>
+
+    <div id="game-play-area" style="display:none">
+      <div class="game-hud">
+        <div class="hp-wrap">
+          <span class="hp-label">❤️</span>
+          <div class="hp-bar"><div class="hp-fill" id="hpFill"></div></div>
+          <span class="hp-text" id="hpText">100</span>
+        </div>
+        <div class="game-info" id="levelTag">Mundo 1 · Pregunta 1/10</div>
+        <div class="medals" id="medals"></div>
+      </div>
+
+      <div class="stage" id="stage">
+        <div class="ship-frame"></div>
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="character" id="character">
+          <svg viewBox="0 0 100 120" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bodyG" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#f8fafc"/>
+                <stop offset="100%" stop-color="#cbd5e1"/>
+              </linearGradient>
+              <radialGradient id="visorG" cx="40%" cy="35%" r="60%">
+                <stop offset="0%" stop-color="#a5b4fc"/>
+                <stop offset="60%" stop-color="#1e1b4b"/>
+                <stop offset="100%" stop-color="#020617"/>
+              </radialGradient>
+            </defs>
+            <!-- antena -->
+            <line x1="50" y1="12" x2="50" y2="4" stroke="#6366f1" stroke-width="2"/>
+            <circle cx="50" cy="3" r="2.8" fill="#fbbf24">
+              <animate attributeName="r" values="2.5;3.8;2.5" dur="1s" repeatCount="indefinite"/>
+              <animate attributeName="fill" values="#fbbf24;#ef4444;#fbbf24" dur="1s" repeatCount="indefinite"/>
+            </circle>
+            <!-- casco -->
+            <circle cx="50" cy="32" r="22" fill="url(#bodyG)" stroke="#6366f1" stroke-width="2"/>
+            <!-- visor -->
+            <path d="M 32 30 Q 50 18 68 30 Q 65 45 50 47 Q 35 45 32 30 Z" fill="url(#visorG)"/>
+            <ellipse cx="42" cy="28" rx="4" ry="6" fill="#a5b4fc" opacity=".75"/>
+            <ellipse cx="40" cy="26" rx="1.5" ry="2.5" fill="#fff" opacity=".95"/>
+            <!-- cuerpo -->
+            <rect x="30" y="52" width="40" height="42" rx="8" fill="url(#bodyG)" stroke="#6366f1" stroke-width="2"/>
+            <!-- pecho -->
+            <rect x="38" y="62" width="24" height="18" rx="3" fill="#1e293b" stroke="#475569"/>
+            <circle cx="44" cy="71" r="2.5" fill="#10b981">
+              <animate attributeName="opacity" values="1;.3;1" dur="1.4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="56" cy="71" r="2.5" fill="#fbbf24">
+              <animate attributeName="opacity" values=".3;1;.3" dur="1.4s" repeatCount="indefinite"/>
+            </circle>
+            <!-- brazo izq -->
+            <rect x="18" y="58" width="14" height="9" rx="4.5" fill="url(#bodyG)" stroke="#6366f1" stroke-width="1.5"/>
+            <!-- brazo der + arma -->
+            <rect x="68" y="58" width="14" height="9" rx="4.5" fill="url(#bodyG)" stroke="#6366f1" stroke-width="1.5"/>
+            <rect x="80" y="56" width="16" height="7" rx="2" fill="#475569" stroke="#1e293b"/>
+            <rect x="92" y="57" width="4" height="5" fill="#fbbf24"/>
+            <!-- piernas -->
+            <rect x="34" y="94" width="11" height="18" rx="3" fill="url(#bodyG)" stroke="#6366f1" stroke-width="1.5"/>
+            <rect x="55" y="94" width="11" height="18" rx="3" fill="url(#bodyG)" stroke="#6366f1" stroke-width="1.5"/>
+            <rect x="33" y="108" width="13" height="5" rx="2" fill="#6366f1"/>
+            <rect x="54" y="108" width="13" height="5" rx="2" fill="#6366f1"/>
+          </svg>
+        </div>
+        <div class="speech" id="speech">Preparando misión...</div>
+        <div class="doors" id="doors"></div>
+        <div class="projectile" id="projectile"></div>
+        <div class="reaction" id="reaction"></div>
+      </div>
+
+      <div class="game-feedback" id="gameFeedback"></div>
+    </div>
+
+    <div id="game-level-complete" style="display:none"></div>
+    <div id="game-victory-screen" style="display:none"></div>
+    <div id="game-defeat-screen" style="display:none"></div>
+  </div>
 </section>
 
 </main>
@@ -1116,6 +1494,399 @@ renderQuiz('avanzado');
   }
   [aS,bS,cS,dS].forEach(s=>s.addEventListener('input',draw));
   draw();
+})();
+
+/* =========================================================
+   JUEGO: APRENDER JUGANDO
+   ========================================================= */
+(function(){
+  const LEVELS = ['basico','intermedio','avanzado'];
+  const LEVEL_NAMES = {basico:'Mundo Lunar', intermedio:'Mundo Orbital', avanzado:'Mundo Estelar'};
+  const MEDAL_ICONS = ['🥉','🥈','🥇'];
+
+  // Mensajes motivacionales (psicólogo para estudiantes universitarios primer semestre)
+  const CORRECT_MSGS = [
+    "¡Excelente, cadete! Cada acierto demuestra que entiendes — no que memorizas. Esa es la diferencia.",
+    "¡Lo lograste! Confía en tu razonamiento; acabas de demostrar que sí puedes con este tema.",
+    "¡Bien hecho! Notar el detalle correcto requiere atención y disciplina. Sigue así.",
+    "¡Perfecto! Tu cerebro está construyendo conexiones cada vez que aciertas. Vas en buen camino.",
+    "¡Muy bien! La trigonometría se domina paso a paso, y acabas de dar uno firme."
+  ];
+  const WRONG_MSGS = [
+    "Tranquilo, equivocarse es parte del aprendizaje. Tu cerebro literalmente está aprendiendo más fuerte ahora mismo.",
+    "No te preocupes, cadete. Los grandes científicos también fallaron antes de lograrlo. Respira y sigue.",
+    "Un error no te define. Define lo que vas a estudiar a continuación. Tú puedes con esto.",
+    "Está bien fallar. Lo importante es que ahora ya conoces la trampa — la próxima vez no caerás.",
+    "Cada error te acerca al acierto. Eso lo dice la neurociencia. Confía en el proceso."
+  ];
+  const LEVEL_COMPLETE_MSGS = [
+    "¡Mundo completado sin un solo error! Lo que acabas de hacer requiere foco y comprensión profunda.",
+    "¡Brillante! Has demostrado dominio total de este mundo. La próxima galaxia te espera.",
+    "¡Increíble! Pocos cadetes logran un nivel perfecto. Llevas las matemáticas en el ADN."
+  ];
+  const RETRY_MSGS = [
+    "Estuviste muy cerca, cadete. Repasa los conceptos donde fallaste y vuelve a intentarlo — la perfección llega con la práctica.",
+    "No te rindas. Cada intento te enseña algo nuevo. Vuelve a entrar, esta vez ya conoces los caminos.",
+    "El aprendizaje no es lineal. Lo que hoy te cuesta, mañana lo dominarás. Respira y reintenta."
+  ];
+
+  const state = {
+    started:false,
+    level:0,           // index in LEVELS
+    questionIdx:0,
+    hp:100,
+    medals:[],
+    questions:[],      // current level's questions with shuffled options
+    errorsInLevel:0,
+    locked:false,
+    finished:false
+  };
+
+  const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+
+  // Fisher-Yates
+  function shuffleOptions(q){
+    const idx = q.options.map((_,i)=>i);
+    for(let i=idx.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [idx[i],idx[j]] = [idx[j],idx[i]];
+    }
+    return {
+      q: q.q,
+      options: idx.map(i=>q.options[i]),
+      answer: idx.indexOf(q.answer),
+      process: q.process
+    };
+  }
+
+  function prepareLevel(){
+    const lvlKey = LEVELS[state.level];
+    state.questions = quizzes[lvlKey].questions.map(shuffleOptions);
+    state.questionIdx = 0;
+    state.errorsInLevel = 0;
+  }
+
+  function updateHUD(){
+    const fill = document.getElementById('hpFill');
+    const text = document.getElementById('hpText');
+    const tag = document.getElementById('levelTag');
+    const medalsEl = document.getElementById('medals');
+    const pct = Math.max(0, Math.min(100, state.hp));
+    fill.style.width = pct + '%';
+    text.textContent = state.hp + ' ❤️';
+    tag.textContent = `${LEVEL_NAMES[LEVELS[state.level]]} · Pregunta ${state.questionIdx+1}/10`;
+    medalsEl.innerHTML = state.medals.map(m=>`<span class="medal">${m}</span>`).join('');
+  }
+
+  function renderQuestion(){
+    const speech = document.getElementById('speech');
+    const doors = document.getElementById('doors');
+    const fb = document.getElementById('gameFeedback');
+    const reaction = document.getElementById('reaction');
+    fb.classList.remove('show','correct','wrong');
+    fb.innerHTML = '';
+    reaction.className = 'reaction';
+    reaction.textContent = '';
+
+    const q = state.questions[state.questionIdx];
+    speech.innerHTML = q.q;
+    doors.innerHTML = q.options.map((opt,i)=>`
+      <div class="door" data-i="${i}">
+        <div class="door-text" style="font-size:.78rem;opacity:.85">Portal ${i+1}</div>
+        <div class="door-label">${opt}</div>
+      </div>
+    `).join('');
+
+    state.locked = false;
+    doors.querySelectorAll('.door').forEach(d=>{
+      d.addEventListener('click',()=>onDoorClick(d));
+    });
+    updateHUD();
+  }
+
+  function onDoorClick(doorEl){
+    if(state.locked) return;
+    state.locked = true;
+    const idx = parseInt(doorEl.dataset.i,10);
+    const q = state.questions[state.questionIdx];
+    const isCorrect = (idx === q.answer);
+
+    // animación de disparo
+    shootProjectile(doorEl, ()=>{
+      // disable all
+      document.querySelectorAll('#doors .door').forEach(d=>d.classList.add('disabled'));
+      if(isCorrect){
+        doorEl.classList.add('correct');
+        handleCorrect(q);
+      } else {
+        doorEl.classList.add('wrong');
+        // resaltar la correcta
+        const correctDoor = document.querySelector(`#doors .door[data-i="${q.answer}"]`);
+        if(correctDoor) correctDoor.classList.add('correct');
+        handleWrong(q);
+      }
+    });
+  }
+
+  function shootProjectile(doorEl, onArrive){
+    const stage = document.getElementById('stage');
+    const character = document.getElementById('character');
+    const proj = document.getElementById('projectile');
+    const stageRect = stage.getBoundingClientRect();
+    const charRect = character.getBoundingClientRect();
+    const doorRect = doorEl.getBoundingClientRect();
+
+    const startX = charRect.right - stageRect.left - 5;
+    const startY = charRect.top + charRect.height*0.5 - stageRect.top;
+    const endX = doorRect.left + doorRect.width*0.5 - stageRect.left;
+    const endY = doorRect.top + doorRect.height*0.5 - stageRect.top;
+    const dx = endX - startX, dy = endY - startY;
+    const dist = Math.hypot(dx,dy);
+    const angle = Math.atan2(dy,dx) * 180/Math.PI;
+
+    proj.style.left = startX + 'px';
+    proj.style.top = startY + 'px';
+    proj.style.transition = 'none';
+    proj.style.transform = `rotate(${angle}deg) translateX(0px)`;
+    proj.classList.add('active');
+    character.classList.add('shoot');
+
+    // forzar reflow
+    void proj.offsetWidth;
+
+    proj.style.transition = 'transform .35s linear';
+    proj.style.transform = `rotate(${angle}deg) translateX(${dist}px)`;
+
+    setTimeout(()=>{
+      proj.classList.remove('active');
+      proj.style.transition = 'none';
+      proj.style.transform = '';
+      character.classList.remove('shoot');
+      onArrive();
+    }, 360);
+  }
+
+  function handleCorrect(q){
+    state.hp += 10;
+    const reaction = document.getElementById('reaction');
+    reaction.textContent = '¡ACIERTO! +10 ❤️';
+    reaction.classList.add('show','correct');
+    spawnParticles(true);
+
+    const fb = document.getElementById('gameFeedback');
+    fb.classList.add('show','correct');
+    fb.innerHTML = `
+      <h4>✅ ${pick(CORRECT_MSGS)}</h4>
+      <p><b>¿Por qué es correcta?</b> ${q.process}</p>
+      <button class="btn success next-btn" id="nextBtn">▶ Siguiente</button>
+    `;
+    document.getElementById('nextBtn').addEventListener('click', advance);
+    updateHUD();
+  }
+
+  function handleWrong(q){
+    state.hp -= 10;
+    state.errorsInLevel++;
+    const reaction = document.getElementById('reaction');
+    reaction.textContent = '✗ −10 ❤️';
+    reaction.classList.add('show','wrong');
+    spawnParticles(false);
+
+    const fb = document.getElementById('gameFeedback');
+    fb.classList.add('show','wrong');
+    fb.innerHTML = `
+      <h4>💙 ${pick(WRONG_MSGS)}</h4>
+      <p><b>La respuesta correcta era:</b> <span style="color:#34d399;font-weight:700">${q.options[q.answer]}</span></p>
+      <p><b>¿Por qué?</b> ${q.process}</p>
+      <button class="btn next-btn" id="nextBtn">▶ Siguiente</button>
+    `;
+    document.getElementById('nextBtn').addEventListener('click', advance);
+    updateHUD();
+
+    if(state.hp <= 0){
+      setTimeout(showDefeat, 600);
+    }
+  }
+
+  function spawnParticles(positive){
+    const stage = document.getElementById('stage');
+    const wrap = document.createElement('div');
+    wrap.className = 'confetti';
+    const colors = positive
+      ? ['#fbbf24','#34d399','#a5b4fc','#f472b6','#fde047']
+      : ['#94a3b8','#64748b','#475569'];
+    for(let i=0;i<24;i++){
+      const p = document.createElement('i');
+      p.style.left = (Math.random()*100) + '%';
+      p.style.background = colors[Math.floor(Math.random()*colors.length)];
+      p.style.animationDuration = (1.2 + Math.random()*1.2) + 's';
+      p.style.animationDelay = (Math.random()*0.2) + 's';
+      p.style.borderRadius = (Math.random()<.5?'50%':'2px');
+      p.style.width = (6 + Math.random()*8) + 'px';
+      p.style.height = (8 + Math.random()*8) + 'px';
+      wrap.appendChild(p);
+    }
+    stage.appendChild(wrap);
+    setTimeout(()=>wrap.remove(), 2600);
+  }
+
+  function advance(){
+    if(state.hp <= 0){ showDefeat(); return; }
+    state.questionIdx++;
+    if(state.questionIdx >= state.questions.length){
+      finishLevel();
+      return;
+    }
+    renderQuestion();
+  }
+
+  function finishLevel(){
+    document.getElementById('game-play-area').style.display = 'none';
+    const target = document.getElementById('game-level-complete');
+    target.style.display = 'block';
+    if(state.errorsInLevel === 0){
+      // medalla y avanzar
+      const medal = MEDAL_ICONS[state.level] || '🏅';
+      state.medals.push(medal);
+      target.innerHTML = `
+        <div class="game-level-complete">
+          <h2>🏅 ¡Mundo completado!</h2>
+          <div class="big-medal" style="font-size:5rem;margin:10px 0">${medal}</div>
+          <div class="motivational">
+            <p><b>${pick(LEVEL_COMPLETE_MSGS)}</b></p>
+            <p>Vida actual: <b>${state.hp} ❤️</b> · Medallas: ${state.medals.join(' ')}</p>
+          </div>
+          ${state.level < LEVELS.length-1
+            ? `<button class="btn success" id="nextLevelBtn" style="font-size:1.05rem;padding:12px 24px">🚀 Avanzar al siguiente mundo</button>`
+            : `<button class="btn success" id="winBtn" style="font-size:1.05rem;padding:12px 24px">🏆 Ver final</button>`}
+        </div>
+      `;
+      if(state.level < LEVELS.length-1){
+        document.getElementById('nextLevelBtn').addEventListener('click',()=>{
+          state.level++;
+          prepareLevel();
+          target.style.display='none';
+          document.getElementById('game-play-area').style.display='block';
+          renderQuestion();
+        });
+      } else {
+        document.getElementById('winBtn').addEventListener('click',showVictory);
+      }
+    } else {
+      target.innerHTML = `
+        <div class="game-level-complete">
+          <h2 style="color:#fbbf24">🌱 Casi, cadete</h2>
+          <div class="motivational">
+            <p><b>${pick(RETRY_MSGS)}</b></p>
+            <p>Aciertos: <b>${10 - state.errorsInLevel}/10</b> · Vida: <b>${state.hp} ❤️</b></p>
+            <p style="opacity:.85">Para avanzar al siguiente mundo, necesitas un mundo perfecto. Pero recuerda: ningún científico llegó a la cima sin caerse muchas veces. ¡Tú puedes!</p>
+          </div>
+          <button class="btn success" id="retryLevelBtn" style="font-size:1.05rem;padding:12px 24px;margin-right:8px">🔄 Reintentar mundo</button>
+          <button class="btn ghost" id="restartGameBtn">↺ Reiniciar misión</button>
+        </div>
+      `;
+      document.getElementById('retryLevelBtn').addEventListener('click',()=>{
+        prepareLevel();
+        target.style.display='none';
+        document.getElementById('game-play-area').style.display='block';
+        renderQuestion();
+      });
+      document.getElementById('restartGameBtn').addEventListener('click',resetGame);
+    }
+  }
+
+  function showVictory(){
+    document.getElementById('game-play-area').style.display='none';
+    document.getElementById('game-level-complete').style.display='none';
+    const v = document.getElementById('game-victory-screen');
+    v.style.display='block';
+    v.innerHTML = `
+      <div class="game-victory">
+        <h2>🏆 ¡Eres el CAMPEÓN!</h2>
+        <div class="medal-row">
+          ${state.medals.map(m=>`<span class="big-medal">${m}</span>`).join('')}
+        </div>
+        <div class="motivational">
+          <p style="font-size:1.15rem"><b>Cadete, lo lograste.</b> Acabas de cruzar tres mundos enteros de trigonometría sin perder un solo portal. Eso no es suerte — eso es trabajo, concentración y carácter.</p>
+          <p>Estás empezando la universidad y ya demostraste algo enorme: que cuando un tema te cuesta, no te rindes, lo enfrentas. Esa cualidad va a llevarte donde quieras ir, sin importar la carrera.</p>
+          <p>Permítete sentirte orgulloso. No por la calificación, sino por el camino: leíste, practicaste, te equivocaste, te corregiste y volviste a intentarlo. Eso es ser estudiante de verdad.</p>
+          <p style="color:#fde047;font-size:1.1rem"><b>Sigue adelante. El espacio es enorme y tú apenas estás empezando.</b> 🚀</p>
+        </div>
+        <button class="btn success" id="playAgainBtn" style="font-size:1.05rem;padding:12px 24px;margin-top:14px">🔁 Volver a jugar</button>
+      </div>
+    `;
+    bigConfetti();
+    document.getElementById('playAgainBtn').addEventListener('click',resetGame);
+  }
+
+  function showDefeat(){
+    document.getElementById('game-play-area').style.display='none';
+    const d = document.getElementById('game-defeat-screen');
+    d.style.display='block';
+    d.innerHTML = `
+      <div class="game-defeat">
+        <h2 style="color:#fca5a5">🌌 Tu nave se quedó sin energía</h2>
+        <div class="motivational">
+          <p><b>Cadete, esto no es un fracaso — es información.</b> Cada portal que fallaste te mostró exactamente dónde repasar. Eso es oro.</p>
+          <p>En primer semestre todos sentimos que la matemática nos puede. La diferencia entre quienes lo logran y quienes no, no es talento: es <b>volver a intentarlo</b>.</p>
+          <p>Tomate cinco minutos, respira, vuelve a la sección de teoría y regresa. Tu próxima misión va a ir mejor — te lo garantizo, porque ya conoces el terreno.</p>
+        </div>
+        <p>Medallas obtenidas: ${state.medals.length ? state.medals.join(' ') : '<i>aún ninguna, pero la próxima sí</i>'}</p>
+        <button class="btn success" id="tryAgainBtn" style="font-size:1.05rem;padding:12px 24px;margin-top:14px">💪 Intentar de nuevo</button>
+      </div>
+    `;
+    document.getElementById('tryAgainBtn').addEventListener('click',resetGame);
+  }
+
+  function bigConfetti(){
+    const stage = document.querySelector('#game-victory-screen .game-victory');
+    if(!stage) return;
+    const wrap = document.createElement('div');
+    wrap.className='confetti';
+    const colors = ['#fbbf24','#34d399','#a5b4fc','#f472b6','#fde047','#60a5fa','#ec4899'];
+    for(let i=0;i<80;i++){
+      const p = document.createElement('i');
+      p.style.left = (Math.random()*100) + '%';
+      p.style.background = colors[Math.floor(Math.random()*colors.length)];
+      p.style.animationDuration = (2 + Math.random()*2) + 's';
+      p.style.animationDelay = (Math.random()*1.2) + 's';
+      p.style.borderRadius = (Math.random()<.5?'50%':'2px');
+      p.style.width = (6 + Math.random()*10) + 'px';
+      p.style.height = (8 + Math.random()*12) + 'px';
+      wrap.appendChild(p);
+    }
+    stage.appendChild(wrap);
+    setTimeout(()=>wrap.remove(), 5000);
+  }
+
+  function resetGame(){
+    state.started=false;
+    state.level=0;
+    state.questionIdx=0;
+    state.hp=100;
+    state.medals=[];
+    state.errorsInLevel=0;
+    state.locked=false;
+    state.finished=false;
+    document.getElementById('game-play-area').style.display='none';
+    document.getElementById('game-level-complete').style.display='none';
+    document.getElementById('game-victory-screen').style.display='none';
+    document.getElementById('game-defeat-screen').style.display='none';
+    document.getElementById('game-start-screen').style.display='block';
+  }
+
+  function startGame(){
+    state.started=true;
+    state.level=0;
+    state.hp=100;
+    state.medals=[];
+    prepareLevel();
+    document.getElementById('game-start-screen').style.display='none';
+    document.getElementById('game-play-area').style.display='block';
+    renderQuestion();
+  }
+
+  document.getElementById('gameStartBtn').addEventListener('click',startGame);
 })();
 </script>
 </body>
