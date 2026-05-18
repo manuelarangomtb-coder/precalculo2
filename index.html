@@ -643,7 +643,7 @@ function renderQuiz(level){
     <div id="score-${level}"></div>
     <div id="questions-${level}"></div>
     <div class="control-row">
-      <button class="btn" id="validate-${level}" ${!st.started || st.finished ? 'disabled' : ''}>✓ Validar respuestas</button>
+      <button class="btn" id="validate-${level}" ${(!st.started || st.finished || !allAnswered(level)) ? 'disabled' : ''}>✓ Validar respuestas</button>
       <button class="btn secondary" id="process-${level}" ${!st.finished ? 'disabled' : ''}>📖 Ver proceso</button>
       <button class="btn ghost" id="reset-${level}">🔄 Volverlo a hacer</button>
     </div>
@@ -693,6 +693,7 @@ function renderQuestions(level){
         // update visual selection
         opts.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
         e.target.closest('.opt').classList.add('selected');
+        updateValidateBtn(level);
       });
     });
   });
@@ -734,20 +735,21 @@ function autoFinish(level){
   document.getElementById('process-'+level).disabled = false;
 }
 
+function allAnswered(level){
+  return state[level].answers.every(a => a !== null);
+}
+
+function updateValidateBtn(level){
+  const st = state[level];
+  const btn = document.getElementById('validate-'+level);
+  if(!btn) return;
+  btn.disabled = !st.started || st.finished || !allAnswered(level);
+}
+
 function validateQuiz(level){
   const st = state[level];
   if(!st.started || st.finished) return;
-  const unanswered = st.answers.filter(a => a === null).length;
-  if(unanswered > 0){
-    document.getElementById('alert-'+level).innerHTML =
-      `<div class="alert alert-warn">⚠ Faltan <b>${unanswered}</b> pregunta(s) por responder. Puedes terminar de responder y validar de nuevo, o validar así para calificar lo que tengas.</div>
-       <div class="control-row" style="margin-top:8px"><button class="btn secondary" id="force-${level}">Validar de todos modos</button></div>`;
-    document.getElementById('force-'+level).addEventListener('click',()=>{
-      document.getElementById('alert-'+level).innerHTML = '';
-      finishQuiz(level);
-    });
-    return;
-  }
+  if(!allAnswered(level)) return;
   finishQuiz(level);
 }
 
