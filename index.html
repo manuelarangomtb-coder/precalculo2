@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Precálculo Interactivo · Práctica de Trigonometría</title>
+<style>
+  :root{
+    --bg:#0f172a;
+    --bg-soft:#1e293b;
+    --card:#ffffff;
+    --card-soft:#f8fafc;
+    --primary:#6366f1;
+    --primary-dark:#4f46e5;
+    --accent:#f59e0b;
+    --success:#10b981;
+    --danger:#ef4444;
+    --warning:#fbbf24;
+    --text:#0f172a;
+    --text-soft:#475569;
+    --muted:#94a3b8;
+    --border:#e2e8f0;
+    --shadow:0 10px 25px -10px rgba(15,23,42,.25);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,sans-serif;color:var(--text);background:#f1f5f9;line-height:1.55;-webkit-font-smoothing:antialiased}
+  header.hero{
+    background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 45%,#ec4899 100%);
+    color:#fff;
+    padding:60px 24px 70px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:24px 24px;opacity:.45;pointer-events:none;
+  }
+  .hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+  .hero h1{font-size:clamp(2rem,4vw,3rem);margin:0 0 12px;letter-spacing:-.02em;font-weight:800}
+  .hero p.lead{margin:0 0 18px;font-size:1.1rem;opacity:.92;max-width:720px}
+  .hero .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .pill{background:rgba(255,255,255,.18);backdrop-filter:blur(6px);color:#fff;padding:6px 12px;border-radius:999px;font-size:.85rem;font-weight:500}
+  nav.tabs{
+    position:sticky;top:0;z-index:50;
+    background:#ffffffee;backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    padding:10px 16px;
+  }
+  .tab-row{max-width:1100px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;overflow-x:auto}
+  .tab-btn{
+    background:transparent;border:1px solid var(--border);color:var(--text-soft);
+    padding:8px 14px;border-radius:999px;cursor:pointer;font-size:.9rem;
+    transition:all .15s ease;font-weight:500;white-space:nowrap;
+  }
+  .tab-btn:hover{background:#eef2ff;color:var(--primary-dark);border-color:#c7d2fe}
+  .tab-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+  main{max-width:1100px;margin:0 auto;padding:32px 20px 80px}
+  section.panel{display:none;animation:fade .25s ease}
+  section.panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .card{
+    background:var(--card);border-radius:16px;box-shadow:var(--shadow);
+    padding:24px;margin-bottom:20px;border:1px solid #f1f5f9;
+  }
+  .card h2{margin:0 0 12px;font-size:1.4rem;color:var(--primary-dark);display:flex;align-items:center;gap:10px}
+  .card h3{margin:18px 0 8px;font-size:1.05rem;color:var(--text)}
+  .card p{margin:8px 0;color:var(--text-soft)}
+  .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:12px}
+  .mini{background:var(--card-soft);border:1px solid var(--border);border-radius:12px;padding:14px}
+  .mini b{color:var(--primary-dark)}
+  .formula{
+    font-family:"Georgia","Times New Roman",serif;font-size:1.05rem;
+    background:#eef2ff;color:#312e81;padding:6px 10px;border-radius:8px;display:inline-block;margin:3px 0
+  }
+  .tip{background:#fef3c7;border-left:4px solid var(--accent);padding:12px 14px;border-radius:8px;margin:10px 0;color:#78350f}
+  .tip b{color:#92400e}
+  .warn{background:#fee2e2;border-left:4px solid var(--danger);padding:12px 14px;border-radius:8px;margin:10px 0;color:#7f1d1d}
+  .ok{background:#d1fae5;border-left:4px solid var(--success);padding:12px 14px;border-radius:8px;margin:10px 0;color:#065f46}
+  /* Quiz */
+  .quiz-header{
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;
+    background:linear-gradient(135deg,#fff 0%,#f8fafc 100%);
+    padding:18px 22px;border-radius:14px;border:1px solid var(--border);margin-bottom:18px;
+    box-shadow:var(--shadow);
+  }
+  .timer-wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .timer{
+    font-family:"Courier New",monospace;font-size:1.6rem;font-weight:700;
+    color:var(--primary-dark);background:#eef2ff;padding:6px 14px;border-radius:10px;
+    min-width:110px;text-align:center;border:2px solid #c7d2fe;
+  }
+  .timer.danger{color:var(--danger);background:#fee2e2;border-color:#fecaca;animation:pulse 1s infinite}
+  @keyframes pulse{50%{transform:scale(1.04)}}
+  .btn{
+    background:var(--primary);color:#fff;border:none;padding:10px 18px;border-radius:10px;
+    cursor:pointer;font-size:.95rem;font-weight:600;transition:all .15s ease;
+  }
+  .btn:hover:not(:disabled){background:var(--primary-dark);transform:translateY(-1px)}
+  .btn:disabled{background:#cbd5e1;cursor:not-allowed;transform:none;opacity:.7}
+  .btn.secondary{background:var(--accent)}
+  .btn.secondary:hover:not(:disabled){background:#d97706}
+  .btn.success{background:var(--success)}
+  .btn.success:hover:not(:disabled){background:#059669}
+  .btn.ghost{background:#fff;color:var(--primary-dark);border:1.5px solid var(--primary)}
+  .btn.ghost:hover:not(:disabled){background:#eef2ff}
+  .question{
+    background:#fff;border-radius:14px;padding:20px;margin-bottom:14px;
+    border:1px solid var(--border);box-shadow:0 2px 8px -4px rgba(15,23,42,.08);
+    transition:all .15s ease;
+  }
+  .question.locked{opacity:.65}
+  .q-title{font-weight:600;margin:0 0 12px;color:var(--text);font-size:1rem}
+  .q-num{display:inline-block;background:var(--primary);color:#fff;width:28px;height:28px;border-radius:50%;text-align:center;line-height:28px;font-size:.85rem;margin-right:8px;font-weight:700}
+  .opts{display:grid;gap:8px;margin-top:10px}
+  .opt{
+    display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--card-soft);
+    border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s ease;
+    font-size:.95rem;
+  }
+  .opt:hover:not(.disabled){background:#eef2ff;border-color:#c7d2fe}
+  .opt.selected{background:#e0e7ff;border-color:var(--primary);color:var(--primary-dark);font-weight:600}
+  .opt.disabled{cursor:not-allowed;opacity:.7}
+  .opt.correct{background:#d1fae5;border-color:var(--success);color:#065f46}
+  .opt.wrong{background:#fee2e2;border-color:var(--danger);color:#7f1d1d}
+  .opt input{margin-top:3px;accent-color:var(--primary)}
+  .process{
+    background:#eff6ff;border-left:4px solid #3b82f6;padding:14px 16px;border-radius:8px;
+    margin-top:14px;color:#1e3a8a;font-size:.95rem;display:none;
+  }
+  .process.show{display:block;animation:fade .3s ease}
+  .process b{color:#1e40af}
+  .score-box{
+    background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 100%);color:#fff;padding:22px;
+    border-radius:14px;text-align:center;margin:18px 0;
+  }
+  .score-num{font-size:3rem;font-weight:800;margin:6px 0}
+  .control-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+  /* Simulator */
+  canvas{display:block;margin:10px auto;border-radius:10px;background:#fff;max-width:100%;height:auto}
+  .sim-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:10px}
+  .sim-controls label{display:flex;flex-direction:column;gap:4px;font-size:.9rem;color:var(--text-soft);font-weight:500}
+  .sim-controls input[type=range]{width:100%;accent-color:var(--primary)}
+  .sim-controls .val{color:var(--primary-dark);font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:10px;font-size:.9rem;color:var(--text-soft)}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+  footer{text-align:center;padding:30px 20px;color:var(--muted);font-size:.85rem}
+  .alert{padding:12px 16px;border-radius:10px;margin:10px 0;font-weight:500}
+  .alert-info{background:#dbeafe;color:#1e3a8a;border:1px solid #bfdbfe}
+  .alert-warn{background:#fef3c7;color:#78350f;border:1px solid #fde68a}
+  @media (max-width:640px){
+    header.hero{padding:40px 18px 50px}
+    .quiz-header{padding:14px}
+    .timer{font-size:1.3rem;min-width:90px}
+    .card{padding:18px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <h1>📐 Precálculo Interactivo</h1>
+    <p class="lead">Práctica integral de trigonometría diseñada para que comprendas — no solo memorices. Teoría, simulaciones visuales y un parcial original de 30 preguntas en tres niveles.</p>
+    <div class="pills">
+      <span class="pill">✦ Triángulos rectángulos</span>
+      <span class="pill">✦ Círculo unitario</span>
+      <span class="pill">✦ Identidades</span>
+      <span class="pill">✦ Ecuaciones trigonométricas</span>
+      <span class="pill">✦ Gráficas sinusoidales</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="tab-row" id="tabRow">
+    <button class="tab-btn active" data-tab="teoria">📚 Teoría</button>
+    <button class="tab-btn" data-tab="formulas">🧮 Fórmulas</button>
+    <button class="tab-btn" data-tab="consejos">💡 Errores comunes</button>
+    <button class="tab-btn" data-tab="circulo">⭕ Círculo unitario</button>
+    <button class="tab-btn" data-tab="sinusoidal">🌊 Función sinusoidal</button>
+    <button class="tab-btn" data-tab="basico">🟢 Parcial básico</button>
+    <button class="tab-btn" data-tab="intermedio">🟡 Parcial intermedio</button>
+    <button class="tab-btn" data-tab="avanzado">🔴 Parcial avanzado</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ===== TEORÍA ===== -->
+<section class="panel active" id="panel-teoria">
+  <div class="card">
+    <h2>📚 Teoría esencial</h2>
+    <p>Antes de presentar el parcial, repasa estas ideas clave. Tómate el tiempo necesario: el reloj solo empieza cuando tú presionas <b>Iniciar parcial</b>.</p>
+
+    <h3>1. Razones trigonométricas en triángulo rectángulo</h3>
+    <p>Para un ángulo agudo θ:</p>
+    <div class="grid-2">
+      <div class="mini"><b>sen θ</b> = opuesto / hipotenusa</div>
+      <div class="mini"><b>cos θ</b> = adyacente / hipotenusa</div>
+      <div class="mini"><b>tan θ</b> = opuesto / adyacente</div>
+    </div>
+    <div class="tip"><b>Truco mnemotécnico:</b> SOH-CAH-TOA. La hipotenusa es siempre el lado más largo, opuesto al ángulo recto.</div>
+
+    <h3>2. Círculo unitario y signos por cuadrante</h3>
+    <p>El círculo unitario tiene radio 1 y centro en el origen. Un punto sobre él tiene coordenadas (cos θ, sen θ).</p>
+    <div class="grid-2">
+      <div class="mini"><b>Cuadrante I</b>: sen +, cos +, tan +</div>
+      <div class="mini"><b>Cuadrante II</b>: sen +, cos −, tan −</div>
+      <div class="mini"><b>Cuadrante III</b>: sen −, cos −, tan +</div>
+      <div class="mini"><b>Cuadrante IV</b>: sen −, cos +, tan −</div>
+    </div>
+    <div class="tip"><b>Mnemónico:</b> "Todos Se Toman Café" → en el cuadrante I son <i>Todos</i> positivos, en II solo <i>Seno</i>, en III solo <i>Tangente</i>, en IV solo <i>Coseno</i>.</div>
+
+    <h3>3. Punto en el plano y razones trigonométricas</h3>
+    <p>Si el lado terminal de θ pasa por el punto (x, y) y r = √(x² + y²), entonces:</p>
+    <div class="grid-2">
+      <div class="mini"><b>sen θ</b> = y / r</div>
+      <div class="mini"><b>cos θ</b> = x / r</div>
+      <div class="mini"><b>tan θ</b> = y / x</div>
+    </div>
+
+    <h3>4. Funciones inversas y sus rangos</h3>
+    <div class="grid-2">
+      <div class="mini"><b>arcsen(x)</b> ∈ [−π/2, π/2]</div>
+      <div class="mini"><b>arccos(x)</b> ∈ [0, π]</div>
+      <div class="mini"><b>arctan(x)</b> ∈ (−π/2, π/2)</div>
+    </div>
+    <div class="warn"><b>Cuidado:</b> arccos(cos θ) no siempre devuelve θ. Solo lo hace si θ está dentro del rango principal.</div>
+
+    <h3>5. Función sinusoidal general</h3>
+    <p class="formula">y = A · sen(B(x − C)) + D</p>
+    <ul style="color:var(--text-soft)">
+      <li><b>|A|</b> = amplitud</li>
+      <li><b>2π/|B|</b> = período</li>
+      <li><b>C</b> = desfase horizontal</li>
+      <li><b>D</b> = desplazamiento vertical</li>
+    </ul>
+    <div class="warn"><b>Importante:</b> si la expresión es sen(Bx − E), debes <b>factorizar B</b> para leer el desfase: sen(B(x − E/B)).</div>
+
+    <h3>6. Identidades fundamentales</h3>
+    <div class="grid-2">
+      <div class="mini"><b>Pitagórica:</b> sen²x + cos²x = 1</div>
+      <div class="mini"><b>Recíprocas:</b> csc, sec, cot</div>
+      <div class="mini"><b>Cociente:</b> tan x = sen x / cos x</div>
+      <div class="mini"><b>Paridad:</b> sen(−x) = −sen x; cos(−x) = cos x</div>
+    </div>
+
+    <h3>7. Fórmulas de suma, diferencia y ángulo doble</h3>
+    <p class="formula">sen(α ± β) = sen α cos β ± cos α sen β</p><br>
+    <p class="formula">cos(α ± β) = cos α cos β ∓ sen α sen β</p><br>
+    <p class="formula">sen(2θ) = 2 sen θ cos θ</p><br>
+    <p class="formula">cos(2θ) = cos²θ − sen²θ = 1 − 2sen²θ = 2cos²θ − 1</p>
+  </div>
+</section>
+
+<!-- ===== FÓRMULAS ===== -->
+<section class="panel" id="panel-formulas">
+  <div class="card">
+    <h2>🧮 Recordatorio rápido de fórmulas</h2>
+
+    <h3>Valores exactos clave</h3>
+    <div class="grid-2">
+      <div class="mini">sen 0 = 0 · cos 0 = 1 · tan 0 = 0</div>
+      <div class="mini">sen(π/6) = 1/2 · cos(π/6) = √3/2</div>
+      <div class="mini">sen(π/4) = cos(π/4) = √2/2</div>
+      <div class="mini">sen(π/3) = √3/2 · cos(π/3) = 1/2</div>
+      <div class="mini">sen(π/2) = 1 · cos(π/2) = 0</div>
+      <div class="mini">tan(π/4) = 1 · tan(π/3) = √3</div>
+    </div>
+
+    <h3>Reducción al ángulo de referencia</h3>
+    <p>Para un ángulo θ en cualquier cuadrante, encuentra el ángulo de referencia α (siempre agudo y positivo) y aplica el <b>signo</b> según el cuadrante.</p>
+    <div class="grid-2">
+      <div class="mini">Cuadrante II: α = π − θ</div>
+      <div class="mini">Cuadrante III: α = θ − π</div>
+      <div class="mini">Cuadrante IV: α = 2π − θ</div>
+      <div class="mini">Reflexión: sen(π − θ) = sen θ</div>
+    </div>
+
+    <h3>Período de cada función</h3>
+    <div class="grid-2">
+      <div class="mini">sen, cos, sec, csc → 2π</div>
+      <div class="mini">tan, cot → π</div>
+    </div>
+
+    <h3>Soluciones generales</h3>
+    <div class="grid-2">
+      <div class="mini">sen x = a → x = arcsen(a) + 2nπ ó x = π − arcsen(a) + 2nπ</div>
+      <div class="mini">cos x = a → x = ±arccos(a) + 2nπ</div>
+      <div class="mini">tan x = a → x = arctan(a) + nπ</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONSEJOS ===== -->
+<section class="panel" id="panel-consejos">
+  <div class="card">
+    <h2>💡 Errores comunes que debes evitar</h2>
+    <p>Estos son los tropiezos más frecuentes. Identificarlos a tiempo te ahorrará puntos en el parcial.</p>
+
+    <div class="warn"><b>1. Confundir lados:</b> el cateto opuesto está <i>frente</i> al ángulo, el adyacente <i>junto</i> a él. Dibuja siempre el triángulo y marca el ángulo θ antes de plantear razones.</div>
+    <div class="warn"><b>2. Ignorar el rango de las inversas:</b> arccos(−1/2) NO es 4π/3. La salida está obligatoriamente en [0, π], por lo que es 2π/3.</div>
+    <div class="warn"><b>3. Dividir por una expresión trigonométrica:</b> si en sen x · cos x = 0 divides por sen x, pierdes las soluciones donde sen x = 0. <b>Mejor factoriza.</b></div>
+    <div class="warn"><b>4. Olvidar soluciones en [0, 2π):</b> al resolver sen x = 1/2 hay dos soluciones (π/6 y 5π/6), no una.</div>
+    <div class="warn"><b>5. Equivocar el signo en cuadrantes II, III, IV:</b> usa el ángulo de referencia para hallar el valor absoluto, luego asigna el signo según el cuadrante.</div>
+    <div class="warn"><b>6. Confundir ángulo de referencia con la solución:</b> el ángulo de referencia es agudo y solo sirve para encontrar el valor numérico. La solución vive en su cuadrante real.</div>
+    <div class="warn"><b>7. No factorizar B antes de leer el desfase:</b> en sen(2x − π), el desfase NO es π. Factoriza: sen(2(x − π/2)) → desfase π/2 a la derecha.</div>
+    <div class="warn"><b>8. Aplicar la fórmula incorrecta de ángulo doble:</b> sen(2θ) ≠ 2 sen θ. La correcta es 2 sen θ cos θ.</div>
+    <div class="warn"><b>9. Confundir cot con 1/tan vs tan vs cos/sen:</b> cot θ = cos θ / sen θ = 1/tan θ. Verifica con un valor conocido.</div>
+    <div class="warn"><b>10. No conectar punto (x, y) con r:</b> r SIEMPRE es positivo. sen θ = y/r conserva el signo de y; cos θ = x/r conserva el signo de x.</div>
+
+    <div class="ok"><b>Estrategia general:</b> dibuja, identifica el cuadrante, calcula r o el lado faltante, asigna el signo, verifica con un valor conocido. Los errores no son fracasos — son señales para revisar el método.</div>
+  </div>
+</section>
+
+<!-- ===== CÍRCULO UNITARIO ===== -->
+<section class="panel" id="panel-circulo">
+  <div class="card">
+    <h2>⭕ Simulación: Círculo unitario</h2>
+    <p>Mueve el deslizador para ver cómo cambian sen θ, cos θ y tan θ a medida que el ángulo recorre el círculo. Observa especialmente los signos en cada cuadrante.</p>
+    <canvas id="circleCanvas" width="500" height="500"></canvas>
+    <div class="sim-controls">
+      <label>Ángulo θ: <span class="val" id="angleVal">0°</span>
+        <input type="range" id="angleSlider" min="0" max="360" value="45" step="1">
+      </label>
+    </div>
+    <div class="grid-2" style="margin-top:16px">
+      <div class="mini">sen θ = <b id="sinVal">0</b></div>
+      <div class="mini">cos θ = <b id="cosVal">0</b></div>
+      <div class="mini">tan θ = <b id="tanVal">0</b></div>
+      <div class="mini">Cuadrante: <b id="cuadVal">I</b></div>
+    </div>
+    <div class="legend">
+      <span><span class="dot" style="background:#ef4444"></span>sen θ (eje y)</span>
+      <span><span class="dot" style="background:#3b82f6"></span>cos θ (eje x)</span>
+      <span><span class="dot" style="background:#10b981"></span>punto (cos θ, sen θ)</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FUNCIÓN SINUSOIDAL ===== -->
+<section class="panel" id="panel-sinusoidal">
+  <div class="card">
+    <h2>🌊 Simulación: Función sinusoidal transformada</h2>
+    <p>Explora cómo cada parámetro de <span class="formula">y = A · sen(B(x − C)) + D</span> cambia la gráfica. Observa especialmente la diferencia entre <b>B</b> y el desfase <b>C</b>.</p>
+    <canvas id="sineCanvas" width="800" height="320"></canvas>
+    <div class="sim-controls">
+      <label>Amplitud A: <span class="val" id="aVal">1</span>
+        <input type="range" id="aSlider" min="-3" max="3" value="1" step="0.1">
+      </label>
+      <label>Frecuencia B: <span class="val" id="bVal">1</span>
+        <input type="range" id="bSlider" min="0.25" max="4" value="1" step="0.05">
+      </label>
+      <label>Desfase C: <span class="val" id="cVal">0</span>
+        <input type="range" id="cSlider" min="-3.14" max="3.14" value="0" step="0.05">
+      </label>
+      <label>Desp. vertical D: <span class="val" id="dVal">0</span>
+        <input type="range" id="dSlider" min="-3" max="3" value="0" step="0.1">
+      </label>
+    </div>
+    <div class="grid-2" style="margin-top:14px">
+      <div class="mini">Amplitud = |A| = <b id="ampOut">1</b></div>
+      <div class="mini">Período = 2π/|B| = <b id="perOut">6.28</b></div>
+      <div class="mini">Desfase = C = <b id="phaseOut">0</b></div>
+      <div class="mini">Línea media: y = <b id="midOut">0</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PARCIAL BÁSICO ===== -->
+<section class="panel" id="panel-basico">
+  <div id="quiz-basico"></div>
+</section>
+
+<!-- ===== PARCIAL INTERMEDIO ===== -->
+<section class="panel" id="panel-intermedio">
+  <div id="quiz-intermedio"></div>
+</section>
+
+<!-- ===== PARCIAL AVANZADO ===== -->
+<section class="panel" id="panel-avanzado">
+  <div id="quiz-avanzado"></div>
+</section>
+
+</main>
+
+<footer>
+  Hecho con 💜 para estudiantes de precálculo · 30 preguntas originales · Practica con comprensión, no con memorización.
+</footer>
+
+<script>
+/* =========================================================
+   DATOS DEL PARCIAL — 30 preguntas originales (10 por nivel)
+   ========================================================= */
+const quizzes = {
+  basico: {
+    title: "🟢 Parcial · Nivel básico",
+    description: "Preguntas directas de un solo paso. Practica los conceptos fundamentales antes de avanzar.",
+    questions: [
+      {
+        q: "En un triángulo rectángulo, el ángulo θ tiene cateto opuesto de 5 cm y cateto adyacente de 12 cm. ¿Cuánto vale sen θ?",
+        options: ["5/13", "12/13", "5/12", "13/5"],
+        answer: 0,
+        process: "Primero calculamos la hipotenusa con Pitágoras: h = √(5² + 12²) = √169 = 13. Como sen θ = opuesto / hipotenusa, sen θ = 5/13. <b>Error frecuente:</b> escoger 5/12 (eso es la tangente) o 12/13 (eso es el coseno). Dibujar el triángulo y marcar el ángulo evita la confusión."
+      },
+      {
+        q: "¿Cuál es el valor exacto de cos(π/3)?",
+        options: ["1/2", "√3/2", "√2/2", "0"],
+        answer: 0,
+        process: "El ángulo π/3 corresponde a 60°. En el triángulo 30-60-90, el coseno de 60° es 1/2. <b>Error frecuente:</b> confundir con sen(π/3) = √3/2. Memoriza la tabla básica: a 30° el coseno es √3/2 y a 60° es 1/2 — son inversos."
+      },
+      {
+        q: "¿En qué cuadrante se encuentra el ángulo 5π/6?",
+        options: ["Cuadrante II", "Cuadrante I", "Cuadrante III", "Cuadrante IV"],
+        answer: 0,
+        process: "5π/6 ≈ 150°. Está entre 90° (π/2) y 180° (π), por lo tanto pertenece al <b>cuadrante II</b>. <b>Tip:</b> convierte rápido a grados o ubica el ángulo respecto a π/2, π, 3π/2, 2π."
+      },
+      {
+        q: "¿Cuál es el signo de tan θ cuando θ está en el cuadrante III?",
+        options: ["Positivo", "Negativo", "Cero", "Indefinido"],
+        answer: 0,
+        process: "En el cuadrante III tanto sen θ como cos θ son negativos. Como tan θ = sen θ / cos θ, los signos negativos se cancelan y el resultado es <b>positivo</b>. <b>Recuerda:</b> ASTC — Todos, Seno, Tangente, Coseno son positivos en I, II, III y IV respectivamente."
+      },
+      {
+        q: "¿Cuál es el valor de arcsen(1/2)?",
+        options: ["π/6", "π/3", "5π/6", "π/2"],
+        answer: 0,
+        process: "arcsen devuelve un ángulo en el rango [−π/2, π/2]. Buscamos x tal que sen(x) = 1/2 dentro de ese rango: x = π/6 (30°). <b>Cuidado:</b> 5π/6 también cumple sen = 1/2, pero está fuera del rango principal del arcoseno, así que no es la respuesta del arcsen."
+      },
+      {
+        q: "¿Cuál es el período de la función y = sen(x)?",
+        options: ["2π", "π", "π/2", "4π"],
+        answer: 0,
+        process: "El seno completa un ciclo entero cada 2π. <b>Tip:</b> recuerda que tan(x) tiene período π, mientras que sen(x) y cos(x) tienen período 2π. No los confundas."
+      },
+      {
+        q: "¿Cuál es la amplitud de la función y = 3 cos(x)?",
+        options: ["3", "6", "1", "1/3"],
+        answer: 0,
+        process: "La amplitud es el valor absoluto del coeficiente que multiplica a la función trigonométrica: |3| = 3. <b>Error frecuente:</b> pensar que la amplitud es 6 (eso sería el rango total: de −3 a 3). La amplitud mide la mitad del recorrido vertical."
+      },
+      {
+        q: "¿Cuál de los siguientes valores es una solución de cos(x) = 0 en el intervalo [0, 2π)?",
+        options: ["π/2", "0", "π", "2π"],
+        answer: 0,
+        process: "cos(π/2) = 0. Otra solución en [0, 2π) es 3π/2, pero no está entre las opciones. <b>Recuerda:</b> el coseno se anula en π/2 + nπ. <b>Cuidado:</b> 2π no pertenece al intervalo porque es <i>abierto</i> en ese extremo."
+      },
+      {
+        q: "¿Cuál es el valor exacto de tan(π/4)?",
+        options: ["1", "√2/2", "√3", "0"],
+        answer: 0,
+        process: "tan(π/4) = sen(π/4) / cos(π/4) = (√2/2) / (√2/2) = 1. <b>Tip:</b> π/4 es el único ángulo especial donde sen y cos son iguales, por eso su tangente es exactamente 1."
+      },
+      {
+        q: "¿Cuál es la coordenada y del punto sobre el círculo unitario asociado al ángulo π/2?",
+        options: ["1", "0", "-1", "√2/2"],
+        answer: 0,
+        process: "Sobre el círculo unitario, el punto correspondiente a θ es (cos θ, sen θ). Para θ = π/2: (cos(π/2), sen(π/2)) = (0, 1). La coordenada y es 1. <b>Tip visual:</b> π/2 apunta exactamente hacia arriba."
+      }
+    ]
+  },
+
+  intermedio: {
+    title: "🟡 Parcial · Nivel intermedio",
+    description: "Requiere 2 o 3 pasos: identificar cuadrante, simplificar radicales y resolver ecuaciones de una etapa.",
+    questions: [
+      {
+        q: "Si sen θ = 3/5 y θ está en el cuadrante II, ¿cuál es el valor de cos θ?",
+        options: ["−4/5", "4/5", "−3/5", "5/4"],
+        answer: 0,
+        process: "Usamos la identidad sen²θ + cos²θ = 1: cos²θ = 1 − 9/25 = 16/25, así cos θ = ±4/5. Como θ está en el <b>cuadrante II</b>, el coseno es <b>negativo</b>: cos θ = −4/5. <b>Error frecuente:</b> olvidar el signo y elegir 4/5."
+      },
+      {
+        q: "¿Cuáles son TODAS las soluciones de 2 sen(x) = √3 en [0, 2π)?",
+        options: ["π/3 y 2π/3", "π/3 solamente", "π/6 y 5π/6", "π/3 y 4π/3"],
+        answer: 0,
+        process: "Despejamos: sen x = √3/2. En [0, 2π), el seno vale √3/2 en x = π/3 (cuadrante I) y en x = π − π/3 = 2π/3 (cuadrante II). <b>Error frecuente:</b> dar solo una solución o usar π/6 (que correspondería a sen = 1/2)."
+      },
+      {
+        q: "El punto (−3, 4) pertenece al lado terminal del ángulo θ. ¿Cuál es sen θ?",
+        options: ["4/5", "−3/5", "−4/5", "−4/3"],
+        answer: 0,
+        process: "Calculamos r = √((−3)² + 4²) = √25 = 5. Entonces sen θ = y/r = 4/5. <b>Importante:</b> r es siempre positivo. El signo del seno lo da la coordenada y, que aquí es +4. El punto está en el cuadrante II, donde sen es positivo — consistente."
+      },
+      {
+        q: "¿Cuál es el desfase horizontal de la función y = sen(2x − π)?",
+        options: ["π/2 hacia la derecha", "π hacia la derecha", "π/2 hacia la izquierda", "2π hacia la derecha"],
+        answer: 0,
+        process: "Hay que <b>factorizar</b> B antes de leer el desfase: y = sen(2x − π) = sen(2(x − π/2)). El desfase es π/2 a la <b>derecha</b>. <b>Error frecuente:</b> leer π directamente sin factorizar. ¡Ese es uno de los errores más castigados en parciales!"
+      },
+      {
+        q: "Simplificar la expresión (1 − cos²x) / sen x, asumiendo sen x ≠ 0.",
+        options: ["sen x", "cos x", "1", "tan x"],
+        answer: 0,
+        process: "Por la identidad pitagórica, 1 − cos²x = sen²x. Entonces (sen²x) / sen x = sen x. <b>Tip:</b> reconocer 1 − cos²x = sen²x es uno de los pasos más útiles en simplificación de identidades."
+      },
+      {
+        q: "Resolver tan x = −1 en el intervalo [0, 2π).",
+        options: ["3π/4 y 7π/4", "π/4 y 5π/4", "3π/4 solamente", "π/4 y 3π/4"],
+        answer: 0,
+        process: "La tangente es −1 cuando el ángulo de referencia es π/4 y nos encontramos en cuadrantes donde tan es negativa: II y IV. En cuadrante II: π − π/4 = 3π/4. En cuadrante IV: 2π − π/4 = 7π/4. <b>Error frecuente:</b> dar π/4 y 5π/4 (eso correspondería a tan = +1)."
+      },
+      {
+        q: "Si tan θ = −2 y θ está en el cuadrante IV, ¿cuánto vale sen θ?",
+        options: ["−2/√5", "2/√5", "−1/√5", "−2/3"],
+        answer: 0,
+        process: "Construimos un triángulo de referencia con cateto opuesto |2| y adyacente |1|, hipotenusa √5. Como θ está en cuadrante IV, sen θ es <b>negativo</b> y cos θ positivo. Por tanto sen θ = −2/√5. Puedes racionalizar: −2√5/5. <b>Error frecuente:</b> mezclar signos."
+      },
+      {
+        q: "Un triángulo rectángulo tiene hipotenusa de 8 cm y uno de sus ángulos agudos mide 30°. ¿Cuál es su área?",
+        options: ["8√3 cm²", "16√3 cm²", "4√3 cm²", "16 cm²"],
+        answer: 0,
+        process: "Cateto opuesto a 30°: 8·sen(30°) = 4. Cateto adyacente: 8·cos(30°) = 4√3. Área = (1/2)·(4)·(4√3) = 8√3 cm². <b>Tip:</b> en un triángulo rectángulo, el área se calcula con los dos catetos, no con la hipotenusa."
+      },
+      {
+        q: "¿Cuál es el valor exacto de sen(7π/6)?",
+        options: ["−1/2", "1/2", "−√3/2", "√3/2"],
+        answer: 0,
+        process: "7π/6 está en el cuadrante III. Ángulo de referencia: 7π/6 − π = π/6. sen(π/6) = 1/2, pero en cuadrante III el seno es <b>negativo</b>: sen(7π/6) = −1/2. <b>Error frecuente:</b> equivocar el cuadrante o confundir con −√3/2 (eso sería sen(4π/3))."
+      },
+      {
+        q: "Si cos θ = −1/2 y sen θ > 0, ¿cuál es el valor de θ en [0, 2π)?",
+        options: ["2π/3", "4π/3", "π/3", "5π/3"],
+        answer: 0,
+        process: "cos θ = −1/2 ocurre en cuadrantes II y III. Como además sen θ > 0, debe ser cuadrante II. El ángulo de referencia es π/3 (porque cos(π/3)=1/2), entonces θ = π − π/3 = 2π/3. <b>Tip:</b> combinar dos condiciones (valor + signo) determina el cuadrante de forma única."
+      }
+    ]
+  },
+
+  avanzado: {
+    title: "🔴 Parcial · Nivel avanzado",
+    description: "Razonamiento completo: identidades compuestas, ecuaciones con factorización y análisis de transformaciones.",
+    questions: [
+      {
+        q: "Resolver 2 sen²x − sen x − 1 = 0 en [0, 2π).",
+        options: ["π/2, 7π/6, 11π/6", "7π/6, 11π/6", "π/2, π/6, 5π/6", "π/6, 5π/6, 3π/2"],
+        answer: 0,
+        process: "Factorizamos como ecuación cuadrática en sen x: (2 sen x + 1)(sen x − 1) = 0. <br>• sen x = −1/2 → x = 7π/6 y 11π/6 (cuadrantes III y IV).<br>• sen x = 1 → x = π/2.<br>Las tres soluciones son π/2, 7π/6, 11π/6. <b>Error frecuente:</b> resolver solo una rama o dividir por sen x y perder soluciones."
+      },
+      {
+        q: "Usando la fórmula de suma, calcular el valor exacto de sen(75°).",
+        options: ["(√6 + √2)/4", "(√6 − √2)/4", "(√2 + √3)/2", "(√6 + √2)/2"],
+        answer: 0,
+        process: "75° = 45° + 30°. Aplicamos sen(a+b) = sen a cos b + cos a sen b:<br>sen 75° = sen45°·cos30° + cos45°·sen30° = (√2/2)(√3/2) + (√2/2)(1/2) = √6/4 + √2/4 = (√6 + √2)/4. <b>Error frecuente:</b> confundir con cos(75°) = (√6 − √2)/4."
+      },
+      {
+        q: "Si sen θ = 3/5 y θ está en el cuadrante II, ¿cuánto vale sen(2θ)?",
+        options: ["−24/25", "24/25", "6/5", "−6/25"],
+        answer: 0,
+        process: "Primero hallamos cos θ. En cuadrante II, cos θ = −4/5. Aplicamos sen(2θ) = 2 sen θ cos θ = 2·(3/5)·(−4/5) = −24/25. <b>Error frecuente:</b> usar 2 sen θ en lugar de 2 sen θ cos θ, o no asignar el signo correcto al coseno."
+      },
+      {
+        q: "¿Cuántas soluciones tiene tan(2x) = 1 en [0, 2π)?",
+        options: ["4 soluciones: π/8, 5π/8, 9π/8, 13π/8", "2 soluciones: π/8 y 5π/8", "4 soluciones: π/4, 3π/4, 5π/4, 7π/4", "1 solución: π/8"],
+        answer: 0,
+        process: "tan(2x) = 1 ⟹ 2x = π/4 + nπ ⟹ x = π/8 + nπ/2. Para [0, 2π) tomamos n = 0, 1, 2, 3: x = π/8, 5π/8, 9π/8, 13π/8 (cuatro soluciones). <b>Error frecuente:</b> olvidar que un cambio de frecuencia (B=2) <i>duplica</i> el número de soluciones en el intervalo."
+      },
+      {
+        q: "Identifica amplitud, período y desfase de y = −2 sen(3x + π).",
+        options: ["Amplitud 2, período 2π/3, desfase π/3 a la izquierda", "Amplitud −2, período 3, desfase π a la izquierda", "Amplitud 2, período 2π, desfase π/3 a la derecha", "Amplitud 2, período 2π/3, desfase π a la izquierda"],
+        answer: 0,
+        process: "Factorizamos: y = −2 sen(3(x + π/3)). <br>• Amplitud = |−2| = 2 (siempre positiva).<br>• Período = 2π/|3| = 2π/3.<br>• Desfase = π/3 a la <b>izquierda</b> (porque x + π/3 = x − (−π/3)).<br><b>Error frecuente:</b> no factorizar B y leer el desfase como π."
+      },
+      {
+        q: "¿Cuál es el valor de arccos(cos(7π/6))?",
+        options: ["5π/6", "7π/6", "−7π/6", "π/6"],
+        answer: 0,
+        process: "7π/6 NO está en [0, π], así que arccos no nos devuelve 7π/6. Calculamos cos(7π/6) = −√3/2. Ahora buscamos x ∈ [0, π] con cos x = −√3/2: x = π − π/6 = 5π/6. <b>Error frecuente:</b> creer que arccos(cos θ) = θ siempre — solo se cumple cuando θ ∈ [0, π]."
+      },
+      {
+        q: "¿Es válida la identidad (sen x + cos x)² − 1 = sen(2x)?",
+        options: ["Sí: al desarrollar se obtiene 1 + 2 sen x cos x − 1 = sen(2x)", "No, el resultado es sen x + cos x", "Sí, porque (a+b)² siempre vale a² + b²", "No, sobra un 1"],
+        answer: 0,
+        process: "Desarrollamos: (sen x + cos x)² = sen²x + 2 sen x cos x + cos²x = 1 + 2 sen x cos x. Restamos 1: 2 sen x cos x = sen(2x). ¡La identidad es correcta! <b>Tip:</b> reconocer sen²+cos²=1 dentro del desarrollo es clave para muchas identidades."
+      },
+      {
+        q: "Una escalera de 10 m forma un ángulo de 70° con el suelo. Otra de 8 m forma 60°. ¿Cuál alcanza mayor altura sobre la pared?",
+        options: ["La de 10 m, aproximadamente 2.5 m más arriba", "La de 8 m", "Llegan a la misma altura", "La de 10 m, aproximadamente 5 m más arriba"],
+        answer: 0,
+        process: "Altura alcanzada = longitud × sen(ángulo). <br>• Escalera 1: 10·sen(70°) ≈ 10·0.9397 ≈ 9.40 m.<br>• Escalera 2: 8·sen(60°) ≈ 8·0.8660 ≈ 6.93 m.<br>Diferencia ≈ 2.47 m. Gana la de 10 m. <b>Tip:</b> no basta con tener una escalera más larga — el ángulo importa, pero aquí 70° y 10 m vencen."
+      },
+      {
+        q: "¿Cuántas soluciones tiene sen x · cos x = 0 en [0, 2π)?",
+        options: ["4 soluciones", "2 soluciones", "3 soluciones", "Infinitas"],
+        answer: 0,
+        process: "Producto cero implica que al menos un factor es cero. <br>• sen x = 0 → x = 0, π.<br>• cos x = 0 → x = π/2, 3π/2.<br>Total: 4 soluciones distintas. <b>Error frecuente — clásico:</b> dividir por cos x para obtener tan x = 0 y perder las dos soluciones donde cos x = 0. Nunca dividas por una expresión que podría ser cero; factoriza."
+      },
+      {
+        q: "Si el punto (−1, −√3) está en el lado terminal del ángulo θ, ¿cuál es el valor de sen(2θ)?",
+        options: ["√3/2", "−√3/2", "1/2", "√3"],
+        answer: 0,
+        process: "r = √(1 + 3) = 2. Entonces sen θ = −√3/2 y cos θ = −1/2 (el punto está en cuadrante III). Aplicamos sen(2θ) = 2 sen θ cos θ = 2·(−√3/2)·(−1/2) = √3/2. <b>Tip:</b> los dos negativos se multiplican y dan positivo — eso es coherente con que 2θ caiga en el cuadrante I."
+      }
+    ]
+  }
+};
+
+/* =========================================================
+   ESTADO DEL PARCIAL
+   ========================================================= */
+const state = {
+  basico:     { started:false, finished:false, answers:Array(10).fill(null), timeLeft:3600, timerId:null, revealed:false },
+  intermedio: { started:false, finished:false, answers:Array(10).fill(null), timeLeft:3600, timerId:null, revealed:false },
+  avanzado:   { started:false, finished:false, answers:Array(10).fill(null), timeLeft:3600, timerId:null, revealed:false }
+};
+
+/* =========================================================
+   NAVEGACIÓN POR PESTAÑAS
+   ========================================================= */
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const tab=btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById('panel-'+tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* =========================================================
+   RENDER DEL PARCIAL
+   ========================================================= */
+function renderQuiz(level){
+  const data = quizzes[level];
+  const container = document.getElementById('quiz-'+level);
+  const st = state[level];
+
+  let html = `
+    <div class="quiz-header">
+      <div>
+        <h2 style="margin:0 0 4px;font-size:1.3rem;color:var(--primary-dark)">${data.title}</h2>
+        <p style="margin:0;color:var(--text-soft);font-size:.95rem">${data.description}</p>
+      </div>
+      <div class="timer-wrap">
+        <button class="btn success" id="start-${level}" ${st.started || st.finished ? 'disabled' : ''}>▶ Iniciar parcial</button>
+        <div class="timer" id="timer-${level}">${formatTime(st.timeLeft)}</div>
+      </div>
+    </div>
+    <div id="alert-${level}"></div>
+    <div id="score-${level}"></div>
+    <div id="questions-${level}"></div>
+    <div class="control-row">
+      <button class="btn" id="validate-${level}" ${!st.started || st.finished ? 'disabled' : ''}>✓ Validar respuestas</button>
+      <button class="btn secondary" id="process-${level}" ${!st.finished ? 'disabled' : ''}>📖 Ver proceso</button>
+      <button class="btn ghost" id="reset-${level}">🔄 Volverlo a hacer</button>
+    </div>
+  `;
+  container.innerHTML = html;
+
+  renderQuestions(level);
+
+  document.getElementById('start-'+level).addEventListener('click',()=>startQuiz(level));
+  document.getElementById('validate-'+level).addEventListener('click',()=>validateQuiz(level));
+  document.getElementById('process-'+level).addEventListener('click',()=>showProcess(level));
+  document.getElementById('reset-'+level).addEventListener('click',()=>resetQuiz(level));
+}
+
+function renderQuestions(level){
+  const data = quizzes[level];
+  const st = state[level];
+  const wrap = document.getElementById('questions-'+level);
+
+  wrap.innerHTML = data.questions.map((q,i)=>{
+    const locked = !st.started || st.finished;
+    return `
+      <div class="question ${locked && !st.started ? 'locked':''}">
+        <p class="q-title"><span class="q-num">${i+1}</span>${q.q}</p>
+        <div class="opts" data-q="${i}">
+          ${q.options.map((opt,j)=>`
+            <label class="opt ${st.answers[i]===j?'selected':''} ${locked?'disabled':''}">
+              <input type="radio" name="q-${level}-${i}" value="${j}" ${st.answers[i]===j?'checked':''} ${locked?'disabled':''}>
+              <span>${opt}</span>
+            </label>
+          `).join('')}
+        </div>
+        <div class="process" id="process-${level}-${i}">
+          <b>Proceso:</b> ${q.process}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // listeners
+  wrap.querySelectorAll('.opts').forEach(opts=>{
+    const qi = parseInt(opts.dataset.q,10);
+    opts.querySelectorAll('input').forEach(input=>{
+      input.addEventListener('change', e=>{
+        if(!st.started || st.finished) return;
+        st.answers[qi] = parseInt(e.target.value,10);
+        // update visual selection
+        opts.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+        e.target.closest('.opt').classList.add('selected');
+      });
+    });
+  });
+}
+
+function startQuiz(level){
+  const st = state[level];
+  if(st.started || st.finished) return;
+  st.started = true;
+  document.getElementById('start-'+level).disabled = true;
+  document.getElementById('alert-'+level).innerHTML = '<div class="alert alert-info">⏱ ¡Buena suerte! El temporizador ha comenzado. Responde con calma — entender es mejor que correr.</div>';
+  renderQuestions(level);
+  startTimer(level);
+}
+
+function startTimer(level){
+  const st = state[level];
+  const el = document.getElementById('timer-'+level);
+  if(st.timerId) clearInterval(st.timerId);
+  st.timerId = setInterval(()=>{
+    st.timeLeft--;
+    el.textContent = formatTime(st.timeLeft);
+    if(st.timeLeft <= 300) el.classList.add('danger');
+    if(st.timeLeft <= 0){
+      clearInterval(st.timerId);
+      st.timerId = null;
+      autoFinish(level);
+    }
+  }, 1000);
+}
+
+function autoFinish(level){
+  const st = state[level];
+  st.finished = true;
+  document.getElementById('alert-'+level).innerHTML = '<div class="alert alert-warn">⏰ Se acabó el tiempo. El parcial se calificó automáticamente con las respuestas registradas.</div>';
+  computeScore(level);
+  lockQuestions(level);
+  document.getElementById('validate-'+level).disabled = true;
+  document.getElementById('process-'+level).disabled = false;
+}
+
+function validateQuiz(level){
+  const st = state[level];
+  if(!st.started || st.finished) return;
+  const unanswered = st.answers.filter(a => a === null).length;
+  if(unanswered > 0){
+    document.getElementById('alert-'+level).innerHTML =
+      `<div class="alert alert-warn">⚠ Faltan <b>${unanswered}</b> pregunta(s) por responder. Puedes terminar de responder y validar de nuevo, o validar así para calificar lo que tengas.</div>
+       <div class="control-row" style="margin-top:8px"><button class="btn secondary" id="force-${level}">Validar de todos modos</button></div>`;
+    document.getElementById('force-'+level).addEventListener('click',()=>{
+      document.getElementById('alert-'+level).innerHTML = '';
+      finishQuiz(level);
+    });
+    return;
+  }
+  finishQuiz(level);
+}
+
+function finishQuiz(level){
+  const st = state[level];
+  st.finished = true;
+  if(st.timerId){clearInterval(st.timerId);st.timerId=null;}
+  computeScore(level);
+  lockQuestions(level);
+  document.getElementById('validate-'+level).disabled = true;
+  document.getElementById('process-'+level).disabled = false;
+  document.getElementById('alert-'+level).innerHTML = '<div class="alert alert-info">✅ Parcial calificado. Revisa el puntaje arriba y presiona <b>Ver proceso</b> para entender cada pregunta.</div>';
+}
+
+function computeScore(level){
+  const data = quizzes[level];
+  const st = state[level];
+  let correct = 0;
+  data.questions.forEach((q,i)=>{
+    if(st.answers[i] === q.answer) correct++;
+  });
+  const pct = Math.round(correct/data.questions.length*100);
+  let msg = '';
+  if(pct === 100) msg = '🏆 ¡Perfecto! Dominio total del tema.';
+  else if(pct >= 80) msg = '🌟 Excelente — vas muy bien.';
+  else if(pct >= 60) msg = '👍 Buen avance. Revisa los procesos para afinar detalles.';
+  else if(pct >= 40) msg = '💪 Vas por buen camino. Estudia los procesos con calma.';
+  else msg = '🌱 Cada error es una oportunidad de aprender. Lee los procesos sin prisa.';
+
+  document.getElementById('score-'+level).innerHTML = `
+    <div class="score-box">
+      <div style="opacity:.9;font-size:.95rem">Tu calificación</div>
+      <div class="score-num">${correct} / ${data.questions.length}</div>
+      <div style="font-size:1.1rem;font-weight:600">${pct}%</div>
+      <div style="margin-top:8px;opacity:.95">${msg}</div>
+    </div>
+  `;
+}
+
+function lockQuestions(level){
+  const data = quizzes[level];
+  const st = state[level];
+  const wrap = document.getElementById('questions-'+level);
+  wrap.querySelectorAll('.question').forEach((qEl,i)=>{
+    const opts = qEl.querySelectorAll('.opt');
+    opts.forEach(o=>{
+      o.classList.add('disabled');
+      const input = o.querySelector('input');
+      input.disabled = true;
+    });
+    // marcar correcta/incorrecta
+    const correctIdx = data.questions[i].answer;
+    const userIdx = st.answers[i];
+    opts.forEach((o,j)=>{
+      o.classList.remove('selected');
+      if(j === correctIdx) o.classList.add('correct');
+      if(userIdx !== null && j === userIdx && j !== correctIdx) o.classList.add('wrong');
+    });
+  });
+}
+
+function showProcess(level){
+  const st = state[level];
+  if(!st.finished) return;
+  st.revealed = true;
+  const wrap = document.getElementById('questions-'+level);
+  wrap.querySelectorAll('.process').forEach(p=>p.classList.add('show'));
+}
+
+function resetQuiz(level){
+  const st = state[level];
+  if(st.timerId){clearInterval(st.timerId);st.timerId=null;}
+  st.started = false;
+  st.finished = false;
+  st.revealed = false;
+  st.answers = Array(quizzes[level].questions.length).fill(null);
+  st.timeLeft = 3600;
+  document.getElementById('alert-'+level).innerHTML = '';
+  document.getElementById('score-'+level).innerHTML = '';
+  document.getElementById('timer-'+level).classList.remove('danger');
+  renderQuiz(level);
+}
+
+function formatTime(s){
+  const m = Math.floor(s/60);
+  const sec = s%60;
+  return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
+}
+
+// Inicializar los 3 parciales
+renderQuiz('basico');
+renderQuiz('intermedio');
+renderQuiz('avanzado');
+
+/* =========================================================
+   SIMULACIÓN: CÍRCULO UNITARIO
+   ========================================================= */
+(function(){
+  const canvas = document.getElementById('circleCanvas');
+  const ctx = canvas.getContext('2d');
+  const slider = document.getElementById('angleSlider');
+  const W = canvas.width, H = canvas.height;
+  const cx = W/2, cy = H/2;
+  const R = Math.min(W,H)*0.36;
+
+  function draw(){
+    const deg = parseInt(slider.value,10);
+    const rad = deg * Math.PI / 180;
+    const px = cx + R * Math.cos(rad);
+    const py = cy - R * Math.sin(rad);
+
+    ctx.clearRect(0,0,W,H);
+
+    // ejes
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(20,cy); ctx.lineTo(W-20,cy);
+    ctx.moveTo(cx,20); ctx.lineTo(cx,H-20);
+    ctx.stroke();
+
+    // etiquetas
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '12px sans-serif';
+    ctx.fillText('x', W-15, cy-6);
+    ctx.fillText('y', cx+6, 15);
+
+    // círculo
+    ctx.strokeStyle = '#6366f1';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.stroke();
+
+    // ángulo (sector)
+    ctx.fillStyle = 'rgba(99,102,241,.12)';
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,R*0.25,0,-rad,true);
+    ctx.closePath();
+    ctx.fill();
+
+    // segmento coseno (eje x)
+    ctx.strokeStyle = '#3b82f6';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy); ctx.lineTo(px,cy);
+    ctx.stroke();
+
+    // segmento seno (vertical)
+    ctx.strokeStyle = '#ef4444';
+    ctx.beginPath();
+    ctx.moveTo(px,cy); ctx.lineTo(px,py);
+    ctx.stroke();
+
+    // línea radial
+    ctx.strokeStyle = '#10b981';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy); ctx.lineTo(px,py);
+    ctx.stroke();
+
+    // punto
+    ctx.fillStyle = '#10b981';
+    ctx.beginPath();
+    ctx.arc(px,py,7,0,Math.PI*2);
+    ctx.fill();
+
+    // valores
+    const s = Math.sin(rad);
+    const c = Math.cos(rad);
+    const t = Math.abs(c) < 1e-9 ? '∞' : (s/c).toFixed(3);
+    document.getElementById('angleVal').textContent = deg + '° (' + (deg*Math.PI/180).toFixed(3) + ' rad)';
+    document.getElementById('sinVal').textContent = s.toFixed(3);
+    document.getElementById('cosVal').textContent = c.toFixed(3);
+    document.getElementById('tanVal').textContent = t;
+    let q;
+    if(deg===0||deg===360) q='Eje +x';
+    else if(deg===90) q='Eje +y';
+    else if(deg===180) q='Eje −x';
+    else if(deg===270) q='Eje −y';
+    else if(deg<90) q='I';
+    else if(deg<180) q='II';
+    else if(deg<270) q='III';
+    else q='IV';
+    document.getElementById('cuadVal').textContent = q;
+  }
+  slider.addEventListener('input',draw);
+  draw();
+})();
+
+/* =========================================================
+   SIMULACIÓN: FUNCIÓN SINUSOIDAL TRANSFORMADA
+   ========================================================= */
+(function(){
+  const canvas = document.getElementById('sineCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const aS = document.getElementById('aSlider');
+  const bS = document.getElementById('bSlider');
+  const cS = document.getElementById('cSlider');
+  const dS = document.getElementById('dSlider');
+
+  function draw(){
+    const A = parseFloat(aS.value);
+    const B = parseFloat(bS.value);
+    const C = parseFloat(cS.value);
+    const D = parseFloat(dS.value);
+
+    document.getElementById('aVal').textContent = A.toFixed(2);
+    document.getElementById('bVal').textContent = B.toFixed(2);
+    document.getElementById('cVal').textContent = C.toFixed(2);
+    document.getElementById('dVal').textContent = D.toFixed(2);
+    document.getElementById('ampOut').textContent = Math.abs(A).toFixed(2);
+    document.getElementById('perOut').textContent = (2*Math.PI/Math.abs(B)).toFixed(3);
+    document.getElementById('phaseOut').textContent = C.toFixed(3);
+    document.getElementById('midOut').textContent = D.toFixed(2);
+
+    ctx.clearRect(0,0,W,H);
+
+    // rango x: -2π a 2π
+    const xMin = -2*Math.PI, xMax = 2*Math.PI;
+    const yMin = -5, yMax = 5;
+    const xToPx = x => (x - xMin) / (xMax - xMin) * W;
+    const yToPx = y => H - (y - yMin) / (yMax - yMin) * H;
+
+    // cuadrícula
+    ctx.strokeStyle = '#f1f5f9';
+    ctx.lineWidth = 1;
+    for(let x=Math.ceil(xMin); x<=xMax; x++){
+      ctx.beginPath();
+      ctx.moveTo(xToPx(x),0); ctx.lineTo(xToPx(x),H);
+      ctx.stroke();
+    }
+    for(let y=yMin; y<=yMax; y++){
+      ctx.beginPath();
+      ctx.moveTo(0,yToPx(y)); ctx.lineTo(W,yToPx(y));
+      ctx.stroke();
+    }
+
+    // ejes
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(0,yToPx(0)); ctx.lineTo(W,yToPx(0));
+    ctx.moveTo(xToPx(0),0); ctx.lineTo(xToPx(0),H);
+    ctx.stroke();
+
+    // marcas π
+    ctx.fillStyle = '#64748b';
+    ctx.font = '11px sans-serif';
+    for(let k=-2;k<=2;k++){
+      if(k===0) continue;
+      ctx.fillText(k+'π', xToPx(k*Math.PI)-8, yToPx(0)+14);
+    }
+    ctx.fillText('0', xToPx(0)+4, yToPx(0)+14);
+
+    // línea media
+    if(D !== 0){
+      ctx.strokeStyle = '#a78bfa';
+      ctx.setLineDash([5,4]);
+      ctx.beginPath();
+      ctx.moveTo(0,yToPx(D)); ctx.lineTo(W,yToPx(D));
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // curva base (gris)
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    for(let i=0;i<=W;i++){
+      const x = xMin + i/W*(xMax-xMin);
+      const y = Math.sin(x);
+      if(i===0) ctx.moveTo(i,yToPx(y));
+      else ctx.lineTo(i,yToPx(y));
+    }
+    ctx.stroke();
+
+    // curva transformada
+    ctx.strokeStyle = '#6366f1';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    for(let i=0;i<=W;i++){
+      const x = xMin + i/W*(xMax-xMin);
+      const y = A * Math.sin(B*(x - C)) + D;
+      if(i===0) ctx.moveTo(i,yToPx(y));
+      else ctx.lineTo(i,yToPx(y));
+    }
+    ctx.stroke();
+  }
+  [aS,bS,cS,dS].forEach(s=>s.addEventListener('input',draw));
+  draw();
+})();
+</script>
+</body>
+</html>
