@@ -142,6 +142,31 @@
   .sim-controls label{display:flex;flex-direction:column;gap:4px;font-size:.9rem;color:var(--text-soft);font-weight:500}
   .sim-controls input[type=range]{width:100%;accent-color:var(--primary)}
   .sim-controls .val{color:var(--primary-dark);font-weight:700}
+  .formula-live{
+    background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#ec4899 100%);
+    color:#fff;border-radius:14px;padding:18px 22px;margin:14px 0;
+    box-shadow:0 12px 28px -12px rgba(99,102,241,.55);
+    font-family:"Georgia","Times New Roman",serif;
+    font-size:clamp(1.2rem,2.6vw,1.8rem);font-weight:600;
+    text-align:center;letter-spacing:.01em;line-height:1.4;
+    position:relative;overflow:hidden;
+  }
+  .formula-live::before{
+    content:"FÓRMULA EN VIVO";position:absolute;top:8px;right:14px;
+    font-family:-apple-system,sans-serif;font-size:.65rem;font-weight:700;
+    letter-spacing:.15em;opacity:.55;
+  }
+  .formula-live .var{
+    display:inline-block;background:rgba(255,255,255,.22);
+    padding:2px 10px;border-radius:8px;margin:0 3px;
+    font-family:"Courier New",monospace;font-weight:700;
+    min-width:54px;transition:background .18s ease,transform .18s ease;
+  }
+  .formula-live .var.changed{background:rgba(253,224,71,.45);transform:scale(1.08)}
+  .formula-live .a{color:#fde047}
+  .formula-live .b{color:#86efac}
+  .formula-live .c{color:#7dd3fc}
+  .formula-live .d{color:#fda4af}
   .legend{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:10px;font-size:.9rem;color:var(--text-soft)}
   .legend span{display:flex;align-items:center;gap:6px}
   .dot{width:12px;height:12px;border-radius:50%;display:inline-block}
@@ -345,6 +370,9 @@
   <div class="card">
     <h2>🌊 Simulación: Función sinusoidal transformada</h2>
     <p>Explora cómo cada parámetro de <span class="formula">y = A · sen(B(x − C)) + D</span> cambia la gráfica. Observa especialmente la diferencia entre <b>B</b> y el desfase <b>C</b>.</p>
+    <div class="formula-live" id="formulaLive">
+      y = <span class="var a" id="fA">1.00</span> · sen( <span class="var b" id="fB">1.00</span> ( x − <span class="var c" id="fC">0.00</span> ) ) + <span class="var d" id="fD">0.00</span>
+    </div>
     <canvas id="sineCanvas" width="800" height="320"></canvas>
     <div class="sim-controls">
       <label>Amplitud A: <span class="val" id="aVal">1</span>
@@ -1000,6 +1028,18 @@ renderQuiz('avanzado');
     document.getElementById('perOut').textContent = (2*Math.PI/Math.abs(B)).toFixed(3);
     document.getElementById('phaseOut').textContent = C.toFixed(3);
     document.getElementById('midOut').textContent = D.toFixed(2);
+
+    // Actualizar fórmula en vivo con animación al cambiar
+    const liveMap = { fA:A.toFixed(2), fB:B.toFixed(2), fC:C.toFixed(2), fD:D.toFixed(2) };
+    Object.entries(liveMap).forEach(([id,val])=>{
+      const el = document.getElementById(id);
+      if(el.textContent !== val){
+        el.textContent = val;
+        el.classList.add('changed');
+        clearTimeout(el._t);
+        el._t = setTimeout(()=>el.classList.remove('changed'), 350);
+      }
+    });
 
     ctx.clearRect(0,0,W,H);
 
