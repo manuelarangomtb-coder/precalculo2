@@ -855,6 +855,27 @@ renderQuiz('avanzado');
   const cx = W/2, cy = H/2;
   const R = Math.min(W,H)*0.36;
 
+  // Tabla de valores exactos para ángulos especiales
+  const EXACT = {
+    0:   { rad:'0',      sin:'0',      cos:'1',      tan:'0' },
+    30:  { rad:'π/6',    sin:'1/2',    cos:'√3/2',   tan:'√3/3' },
+    45:  { rad:'π/4',    sin:'√2/2',   cos:'√2/2',   tan:'1' },
+    60:  { rad:'π/3',    sin:'√3/2',   cos:'1/2',    tan:'√3' },
+    90:  { rad:'π/2',    sin:'1',      cos:'0',      tan:'indefinida' },
+    120: { rad:'2π/3',   sin:'√3/2',   cos:'−1/2',   tan:'−√3' },
+    135: { rad:'3π/4',   sin:'√2/2',   cos:'−√2/2',  tan:'−1' },
+    150: { rad:'5π/6',   sin:'1/2',    cos:'−√3/2',  tan:'−√3/3' },
+    180: { rad:'π',      sin:'0',      cos:'−1',     tan:'0' },
+    210: { rad:'7π/6',   sin:'−1/2',   cos:'−√3/2',  tan:'√3/3' },
+    225: { rad:'5π/4',   sin:'−√2/2',  cos:'−√2/2',  tan:'1' },
+    240: { rad:'4π/3',   sin:'−√3/2',  cos:'−1/2',   tan:'√3' },
+    270: { rad:'3π/2',   sin:'−1',     cos:'0',      tan:'indefinida' },
+    300: { rad:'5π/3',   sin:'−√3/2',  cos:'1/2',    tan:'−√3' },
+    315: { rad:'7π/4',   sin:'−√2/2',  cos:'√2/2',   tan:'−1' },
+    330: { rad:'11π/6',  sin:'−1/2',   cos:'√3/2',   tan:'−√3/3' },
+    360: { rad:'2π',     sin:'0',      cos:'1',      tan:'0' }
+  };
+
   function draw(){
     const deg = parseInt(slider.value,10);
     const rad = deg * Math.PI / 180;
@@ -918,14 +939,26 @@ renderQuiz('avanzado');
     ctx.arc(px,py,7,0,Math.PI*2);
     ctx.fill();
 
-    // valores
+    // valores: exactos si el ángulo es especial, decimales si no
     const s = Math.sin(rad);
     const c = Math.cos(rad);
-    const t = Math.abs(c) < 1e-9 ? '∞' : (s/c).toFixed(3);
-    document.getElementById('angleVal').textContent = deg + '° (' + (deg*Math.PI/180).toFixed(3) + ' rad)';
-    document.getElementById('sinVal').textContent = s.toFixed(3);
-    document.getElementById('cosVal').textContent = c.toFixed(3);
-    document.getElementById('tanVal').textContent = t;
+    const exact = EXACT[deg];
+    let sinTxt, cosTxt, tanTxt, angTxt;
+    if(exact){
+      sinTxt = exact.sin;
+      cosTxt = exact.cos;
+      tanTxt = exact.tan;
+      angTxt = deg + '°  =  ' + exact.rad + ' rad';
+    } else {
+      sinTxt = s.toFixed(3);
+      cosTxt = c.toFixed(3);
+      tanTxt = Math.abs(c) < 1e-9 ? 'indefinida' : (s/c).toFixed(3);
+      angTxt = deg + '°  ≈  ' + rad.toFixed(3) + ' rad';
+    }
+    document.getElementById('angleVal').textContent = angTxt;
+    document.getElementById('sinVal').textContent = sinTxt;
+    document.getElementById('cosVal').textContent = cosTxt;
+    document.getElementById('tanVal').textContent = tanTxt;
     let q;
     if(deg===0||deg===360) q='Eje +x';
     else if(deg===90) q='Eje +y';
