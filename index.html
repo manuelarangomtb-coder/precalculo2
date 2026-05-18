@@ -55,6 +55,59 @@
   }
   .tab-btn:hover{background:#eef2ff;color:var(--primary-dark);border-color:#c7d2fe}
   .tab-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+  /* Botón especial "Aprender jugando" — bombillo de neón */
+  .tab-btn[data-tab="juego"]{
+    color:#fff;font-weight:700;border:none;position:relative;
+    background:linear-gradient(90deg,#ec4899,#f59e0b,#10b981,#3b82f6,#a855f7,#ec4899);
+    background-size:300% 100%;
+    animation:neonShift 4s linear infinite, neonBlink 1.6s ease-in-out infinite;
+    text-shadow:0 0 6px rgba(255,255,255,.85);
+  }
+  .tab-btn[data-tab="juego"]:hover{
+    transform:translateY(-1px) scale(1.04);
+    color:#fff;
+  }
+  .tab-btn[data-tab="juego"].active{
+    animation:neonShift 4s linear infinite, neonBlinkStrong 1.2s ease-in-out infinite;
+  }
+  @keyframes neonShift{
+    0%{background-position:0% 50%}
+    100%{background-position:300% 50%}
+  }
+  @keyframes neonBlink{
+    0%,100%{
+      box-shadow:
+        0 0 8px rgba(236,72,153,.7),
+        0 0 16px rgba(245,158,11,.55),
+        0 0 26px rgba(168,85,247,.45);
+      filter:brightness(1.1);
+    }
+    50%{
+      box-shadow:
+        0 0 14px rgba(236,72,153,.95),
+        0 0 28px rgba(245,158,11,.85),
+        0 0 44px rgba(168,85,247,.75),
+        0 0 60px rgba(59,130,246,.45);
+      filter:brightness(1.35);
+    }
+  }
+  @keyframes neonBlinkStrong{
+    0%,100%{
+      box-shadow:
+        0 0 12px rgba(236,72,153,.85),
+        0 0 24px rgba(245,158,11,.75),
+        0 0 36px rgba(168,85,247,.6);
+      filter:brightness(1.2);
+    }
+    50%{
+      box-shadow:
+        0 0 20px rgba(236,72,153,1),
+        0 0 36px rgba(245,158,11,1),
+        0 0 54px rgba(168,85,247,.9),
+        0 0 70px rgba(59,130,246,.6);
+      filter:brightness(1.5) saturate(1.3);
+    }
+  }
   main{max-width:1100px;margin:0 auto;padding:32px 20px 80px}
   section.panel{display:none;animation:fade .25s ease}
   section.panel.active{display:block}
